@@ -1,48 +1,56 @@
-# Astro Starter Kit: Basics
+# The Getaway Yosemite
 
-```sh
-npm create astro@latest -- --template basics
+Website for The Getaway, a bed and breakfast located in Midpines, CA near Yosemite National Park.
+
+## Development
+
+Built with [Astro](https://astro.build) and deployed to GitHub Pages.
+
+### Setup
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+### Available Commands
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+| Command                | Action                                           |
+| :-------------------- | :----------------------------------------------- |
+| `npm install`         | Install dependencies                             |
+| `npm run dev`         | Start dev server at `localhost:4321`             |
+| `npm run build`       | Build production site to `./dist/`               |
+| `npm run preview`     | Preview production build locally                 |
+| `npm run fetch`       | Fetch latest room data                          |
+| `npm run parse`       | Parse room data                                 |
+| `npm run lint`        | Check code style                                |
+| `npm run lint:fix`    | Fix code style issues                           |
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+### Project Structure
 
 ```text
 /
-├── public/
-│   └── favicon.svg
+├── public/          # Static assets
 ├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── components/  # UI components
+│   ├── layouts/     # Page layouts
+│   ├── pages/       # Routes
+│   └── data/        # Room data
+├── scripts/         # Build scripts
+└── tests/           # Test files
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+### Deployment
 
-## 🧞 Commands
+The site is automatically deployed to production when changes are pushed to the main branch. The deployment process:
 
-All commands are run from the root of the project, from a terminal:
+1. Builds the site
+2. Optimizes images
+3. Deploys to GitHub Pages
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## License
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Private. All rights reserved.
