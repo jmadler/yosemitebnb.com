@@ -1,0 +1,1578 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { rooms } from '../data/rooms';
+
+// Convert rooms object to array for mapping
+const roomsArray = Object.values(rooms);
+
+const siteInfo = {
+	address: "6484A CA-140, Midpines, CA 95345",
+	phone: "(209) 742-4019",
+	email: "info@yosemitebnb.com",
+	checkIn: "3:00 PM - 8:00 PM",
+	checkOut: "11:00 AM",
+	parking: "Free on-site parking available",
+	distances: {
+		"Yosemite Valley": "45 min drive (37 miles)",
+		"Mariposa": "10 min drive (7 miles)",
+		"Merced Airport": "1 hour drive (50 miles)",
+		"Bass Lake": "45 min drive",
+		"Glacier Point": "1 hour drive (45 miles)",
+		"Sierra National Forest": "30 min drive",
+		"El Portal": "25 min drive",
+		"Arch Rock Entrance": "30 min drive"
+	},
+	nearbyAttractions: [
+		{
+			name: "Yosemite National Park",
+			description: "World-famous for its granite cliffs, waterfalls, and diverse wildlife",
+			url: "https://www.nps.gov/yose/index.htm"
+		},
+		{
+			name: "Historic Mariposa",
+			description: "Gold rush era town with museums, shops, and restaurants",
+			url: "https://www.mariposa.ca.us/"
+		},
+		{
+			name: "Merced River Recreation",
+			description: "Swimming, fishing, and rafting opportunities",
+			url: "https://www.mercedca.gov/parks-recreation/merced-river-recreation"
+		},
+		{
+			name: "California State Mining Museum",
+			description: "Exhibits on gold mining history and mineral displays",
+			url: "https://www.californiamines.org/"
+		}
+	],
+	seasonalActivities: {
+		spring: {
+			activities: [
+				"Waterfall viewing at peak flow (April-May)",
+				"Wildflower blooms in meadows",
+				"Hiking lower elevation trails",
+				"Rock climbing beginning season",
+				"Bird watching as migrants return"
+			],
+			image: "/images/seasons/spring-waterfalls.jpg",
+			additionalImages: [
+				"/images/seasons/spring-wildflowers.jpg",
+				"/images/seasons/spring-hiking.jpg",
+				"/images/seasons/spring-climbing.jpg"
+			],
+			temp: "45-70°F (7-21°C)",
+			highlights: "Peak waterfall season, wildflowers"
+		},
+		summer: {
+			activities: [
+				"All park roads open",
+				"Full hiking trail access",
+				"Swimming in Merced River",
+				"Rock climbing peak season",
+				"Stargazing programs",
+				"High country access"
+			],
+			image: "/images/seasons/summer-valley.jpg",
+			additionalImages: [
+				"/images/seasons/summer-hiking.jpg",
+				"/images/seasons/summer-stargazing.jpg",
+				"/images/seasons/summer-highcountry.jpg"
+			],
+			temp: "65-90°F (18-32°C)",
+			highlights: "Best hiking weather, all areas accessible"
+		},
+		fall: {
+			activities: [
+				"Fall colors in valley (October-November)",
+				"Less crowded trails",
+				"Pleasant temperatures for hiking",
+				"Clear skies for photography",
+				"Rock climbing continues"
+			],
+			image: "/images/seasons/fall-colors.jpg",
+			additionalImages: [
+				"/images/seasons/fall-hiking.jpg",
+				"/images/seasons/fall-photography.jpg",
+				"/images/seasons/fall-climbing.jpg"
+			],
+			temp: "50-75°F (10-24°C)",
+			highlights: "Fall colors, fewer crowds"
+		},
+		winter: {
+			activities: [
+				"Skiing at Badger Pass",
+				"Snowshoeing trails",
+				"Ice skating in valley",
+				"Winter photography",
+				"Cozy fireplace evenings"
+			],
+			image: "/images/seasons/winter-snow.jpg",
+			additionalImages: [
+				"/images/seasons/winter-skiing.jpg",
+				"/images/seasons/winter-snowshoeing.jpg",
+				"/images/seasons/winter-ice skating.jpg"
+			],
+			temp: "35-50°F (2-10°C)",
+			highlights: "Snow activities, dramatic scenery"
+		}
+	},
+	houseRules: [
+		"Quiet hours 10 PM - 7 AM",
+		"No smoking inside",
+		"No pets allowed",
+		"No parties or events",
+		"Check-in time strictly 3 PM - 8 PM"
+	],
+	localDining: [
+		{
+			name: "1850 Restaurant",
+			type: "American",
+			location: "Mariposa",
+			distance: "7 miles"
+		},
+		{
+			name: "Charles Street Dinner House",
+			type: "Steakhouse",
+			location: "Mariposa",
+			distance: "7 miles"
+		}
+	],
+	transportation: {
+		"YARTS Bus": {
+			description: "Year-round service to Yosemite Valley",
+			url: "https://yarts.com/routes-and-schedules/",
+			schedule: "Multiple daily departures from Mariposa",
+			cost: "Around $13 one-way, free with Yosemite entrance pass"
+		},
+		"Rental Cars": {
+			description: "Available in Merced and Fresno",
+			locations: [
+				"Merced Airport (MCE)",
+				"Fresno Airport (FAT)",
+				"Enterprise Rent-A-Car Merced"
+			]
+		},
+		"Private Shuttle": {
+			description: "Door-to-door service available",
+			providers: [
+				"Yosemite Private Tours",
+				"Discover Yosemite"
+			]
+		}
+	},
+	emergencyInfo: {
+		"Local Hospital": "John C. Fremont Hospital, Mariposa (15 min)",
+		"Police": "Mariposa County Sheriff (10 min)",
+		"Fire": "Midpines Fire Station (5 min)",
+		"Emergency": "911"
+	},
+	trails: {
+		easy: [
+			{
+				name: "Lower Yosemite Falls",
+				distance: "1 mile round trip",
+				elevation: "50 feet",
+				time: "30 minutes",
+				description: "Easy paved loop to the base of Lower Yosemite Falls",
+				url: "https://www.nps.gov/yose/planyourvisit/yosemitefalls.htm"
+			},
+			{
+				name: "Bridalveil Fall",
+				distance: "0.5 mile round trip",
+				elevation: "80 feet",
+				time: "20 minutes",
+				description: "Short walk to the base of Bridalveil Fall",
+				url: "https://www.nps.gov/yose/planyourvisit/bridalveilfalltrail.htm"
+			}
+		],
+		moderate: [
+			{
+				name: "Vernal Fall Footbridge",
+				distance: "1.6 miles round trip",
+				elevation: "400 feet",
+				time: "1-2 hours",
+				description: "Uphill hike to footbridge with waterfall views",
+				url: "https://www.nps.gov/yose/planyourvisit/vernalnevadafall.htm"
+			},
+			{
+				name: "Mirror Lake Loop",
+				distance: "2-5 miles round trip",
+				elevation: "100 feet",
+				time: "1-3 hours",
+				description: "Scenic walk to Mirror Lake with views of Half Dome",
+				url: "https://www.nps.gov/yose/planyourvisit/mirrorlakeloop.htm"
+			}
+		],
+		strenuous: [
+			{
+				name: "Upper Yosemite Falls",
+				distance: "7.2 miles round trip",
+				elevation: "2,700 feet",
+				time: "6-8 hours",
+				description: "Challenging hike to the top of North America's tallest waterfall",
+				url: "https://www.nps.gov/yose/planyourvisit/yosemitefalls.htm"
+			},
+			{
+				name: "Four Mile Trail",
+				distance: "9.6 miles round trip",
+				elevation: "3,200 feet",
+				time: "6-8 hours",
+				description: "Steep trail from Valley to Glacier Point with spectacular views",
+				url: "https://www.nps.gov/yose/planyourvisit/fourmiletrail.htm"
+			}
+		]
+	},
+	maps: {
+		google: "https://maps.google.com/?q=6484A+CA-140,+Midpines,+CA+95345",
+		apple: "http://maps.apple.com/?address=6484A+CA-140,+Midpines,+CA+95345",
+		coordinates: {
+			lat: 37.5655556,
+			lng: -119.9394444
+		}
+	}
+};
+
+// Update meta/structured data with correct info
+const meta = {
+	title: "The Getaway Yosemite BnB - Mountain Retreat Near Yosemite",
+	description: "Cozy mountain lodging near Yosemite National Park. Private rooms with mountain views, 45 minutes from Yosemite Valley. Located at 6484A CA-140, Midpines.",
+	keywords: "Yosemite lodging, Yosemite BnB, Midpines hotel, Highway 140 accommodation, mountain retreat, Yosemite accommodation",
+	image: "/images/lodge/exterior.jpg",
+	url: "https://yosemitebnb.com",
+	structuredData: {
+		"@context": "https://schema.org",
+		"@type": "LodgingBusiness",
+		"name": "The Getaway Yosemite",
+		"image": "/images/lodge/exterior.jpg",
+		"description": "Cozy mountain lodging near Yosemite National Park",
+		"address": {
+			"@type": "PostalAddress",
+			"streetAddress": "6484A CA-140",
+			"addressLocality": "Midpines",
+			"addressRegion": "CA",
+			"postalCode": "95345",
+			"addressCountry": "US"
+		},
+		"geo": {
+			"@type": "GeoCoordinates",
+			"latitude": 37.5655556,
+			"longitude": -119.9394444
+		},
+		"telephone": "(209) 742-4019",
+		"priceRange": "$$",
+		"amenityFeature": [
+			{ "@type": "LocationFeatureSpecification", "name": "Mountain view" },
+			{ "@type": "LocationFeatureSpecification", "name": "Free parking" },
+			{ "@type": "LocationFeatureSpecification", "name": "Wifi" }
+		]
+	}
+};
+
+// Helper function to get current season
+const getCurrentSeason = () => {
+	const month = new Date().getMonth();
+	if (month >= 2 && month <= 4) return 'spring';
+	if (month >= 5 && month <= 7) return 'summer';
+	if (month >= 8 && month <= 10) return 'fall';
+	return 'winter';
+};
+
+const currentSeason = getCurrentSeason();
+---
+
+<Layout title={meta.title} meta={meta}>
+	<nav class="page-nav">
+		<button class="mobile-menu-btn" aria-label="Toggle menu">
+			<span class="menu-icon"></span>
+		</button>
+		<ul class="nav-links">
+			<li><a href="#rooms">Our Rooms</a></li>
+			<li><a href="#reviews">Guest Reviews</a></li>
+			<li><a href="#location">Location & Contact</a></li>
+			<li><a href="#park-info">Yosemite Info</a></li>
+			<li><a href="#activities">Seasonal Activities</a></li>
+		</ul>
+	</nav>
+
+	<main class="container">
+		<section class="hero">
+			<div class="hero-carousel">
+				<img src="/images/lodge/exterior.jpg" alt="Lodge exterior" class="active" />
+				<img src="/images/lodge/lobby.jpg" alt="Lodge lobby" />
+				<img src="/images/lodge/garden.jpg" alt="Lodge garden" />
+				<img src="/images/lodge/view.jpg" alt="Mountain view" />
+			</div>
+			<div class="hero-content">
+				<h1>Welcome to The Getaway</h1>
+				<p>Your cozy mountain retreat near Yosemite National Park</p>
+				<div class="hero-cta">
+					<a href="#rooms" class="cta-button">View Rooms</a>
+					<a href="tel:2099666666" class="cta-button secondary">Call Us</a>
+				</div>
+			</div>
+			<div class="scroll-indicator">
+				<span>Scroll to explore</span>
+				<div class="chevron"></div>
+			</div>
+		</section>
+
+		<section class="park-notice">
+			<div class="notice-content">
+				<h2>Important Yosemite National Park Information</h2>
+				<div class="notice-grid">
+					<div class="notice-card">
+						<h3>Park Reservations</h3>
+						<p>Yosemite National Park may require reservations during peak periods.</p>
+						<a href="https://www.nps.gov/yose/planyourvisit/reservations.htm" 
+						   class="notice-link" 
+						   target="_blank" 
+						   rel="noopener noreferrer">
+							Check Reservation Requirements →
+						</a>
+					</div>
+
+					<div class="notice-card">
+						<h3>Current Conditions</h3>
+						<div class="weather-widget">
+							<a class="weatherwidget-io" href="https://forecast7.com/en/37d56n119d94/midpines/?unit=us" 
+							   data-label_1="MIDPINES" 
+							   data-label_2="WEATHER" 
+							   data-theme="original" >MIDPINES WEATHER</a>
+							<script>
+							!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+							</script>
+						</div>
+						<a href="https://www.nps.gov/yose/planyourvisit/conditions.htm" 
+						   class="notice-link" 
+						   target="_blank" 
+						   rel="noopener noreferrer">
+							View Park Conditions →
+						</a>
+					</div>
+
+					<div class="notice-card">
+						<h3>Location & Directions</h3>
+						<div class="map-embed">
+							<iframe 
+								src={`https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${encodeURIComponent(siteInfo.address)}`}
+								width="100%" 
+								height="200" 
+								style="border:0;" 
+								allowfullscreen="" 
+								loading="lazy" 
+								referrerpolicy="no-referrer-when-downgrade">
+							</iframe>
+						</div>
+						<div class="map-links">
+							<a href={siteInfo.maps.google} target="_blank" rel="noopener noreferrer">
+								Open in Google Maps
+							</a>
+							<span class="separator">|</span>
+							<a href={siteInfo.maps.apple} target="_blank" rel="noopener noreferrer">
+								Open in Apple Maps
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<div class="content-wrapper">
+			<section id="rooms" class="rooms">
+				<h2>Our Rooms</h2>
+				<div class="rooms-grid">
+					{roomsArray.map(room => (
+						<a href={`/rooms/${room.id}`} class="room-card">
+							<img src={room.images[0]} alt={room.id} />
+							<div class="room-info">
+								<h2>{room.id}</h2>
+								<p class="rating">★{room.rating}</p>
+								<p class="capacity">{room.capacity}</p>
+							</div>
+						</a>
+					))}
+				</div>
+			</section>
+
+			<section id="reviews" class="reviews">
+				<h2>Guest Reviews</h2>
+				
+				<div class="review-grid">
+					<div class="review-source">
+						<h3>Google Reviews</h3>
+						<div class="google-reviews">
+							<iframe 
+								src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12696.724798745537!2d-119.9394444!3d37.5655556!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8096b8f5a2d3aad3%3A0x2f2014a61205155!2sThe%20Getaway!5e0!3m2!1sen!2sus!4v1708482478947!5m2!1sen!2sus" 
+								width="100%" 
+								height="450" 
+								style="border:0;" 
+								allowfullscreen="" 
+								loading="lazy" 
+								referrerpolicy="no-referrer-when-downgrade">
+							</iframe>
+						</div>
+					</div>
+
+					<div class="review-source">
+						<h3>Yelp Reviews</h3>
+						<div class="yelp-reviews">
+							<span class="yelp-review" 
+								data-review-id="get-away-midpines" 
+								data-hostname="www.yelp.com">
+								<a href="https://www.yelp.com/biz/get-away-midpines" 
+									target="_blank" 
+									rel="noopener noreferrer">
+									Read our reviews on Yelp
+								</a>
+							</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="trust-badges">
+					<div class="badge">
+						<span class="large">4.8</span>
+						<span>Average Rating</span>
+					</div>
+					<div class="badge">
+						<span class="large">1000+</span>
+						<span>Happy Guests</span>
+					</div>
+					<div class="badge">
+						<span class="large">45 min</span>
+						<span>to Yosemite Valley</span>
+					</div>
+				</div>
+			</section>
+
+			<section id="location" class="location">
+				<h2>Location & Contact</h2>
+				<div class="info-grid">
+					<div class="contact-info">
+						<h3>Contact & Check-in</h3>
+						<p>
+							<strong>Phone:</strong><br />
+							<a href="tel:2097424019">(209) 742-4019</a>
+						</p>
+						<p>
+							<strong>Email:</strong><br />
+							<a href="mailto:info@yosemitebnb.com">info@yosemitebnb.com</a>
+						</p>
+						<p>
+							<strong>Check-in:</strong> {siteInfo.checkIn}<br />
+							<strong>Check-out:</strong> {siteInfo.checkOut}
+						</p>
+						<p>
+							<strong>Parking:</strong><br />
+							{siteInfo.parking}
+						</p>
+					</div>
+
+					<div class="distances">
+						<h3>Travel Times</h3>
+						<ul>
+							{Object.entries(siteInfo.distances).map(([place, time]) => (
+								<li>
+									<strong>{place}:</strong> {time}
+								</li>
+							))}
+						</ul>
+					</div>
+
+					<div class="attractions">
+						<h3>Nearby Attractions</h3>
+						<ul>
+							{siteInfo.nearbyAttractions.map(attraction => (
+								<li>
+									<a href={attraction.url} target="_blank" rel="noopener noreferrer">
+										{attraction.name}
+									</a> - {attraction.description}
+								</li>
+							))}
+						</ul>
+					</div>
+				</div>
+			</section>
+
+			<section id="park-info" class="park-info">
+				<h2>Yosemite National Park Information</h2>
+				<div class="info-grid">
+					<div class="info-card">
+						<h3>Essential Links</h3>
+						<ul>
+							<li>
+								<a href="https://www.nps.gov/yose/planyourvisit/reservations.htm" target="_blank">
+									Entrance Reservations →
+								</a>
+							</li>
+							<li>
+								<a href="https://www.nps.gov/yose/planyourvisit/fees.htm" target="_blank">
+									Park Fees & Passes →
+								</a>
+							</li>
+							<li>
+								<a href="https://www.nps.gov/yose/planyourvisit/conditions.htm" target="_blank">
+									Current Conditions →
+								</a>
+							</li>
+							<li>
+								<a href="https://www.nps.gov/yose/planyourvisit/maps.htm" target="_blank">
+									Park Maps →
+								</a>
+							</li>
+						</ul>
+					</div>
+
+					<div class="info-card">
+						<h3>Popular Attractions</h3>
+						<ul>
+							<li>
+								<a href="https://www.nps.gov/yose/planyourvisit/valleyhikes.htm" target="_blank">
+									Yosemite Valley Trails
+								</a>
+							</li>
+							<li>
+								<a href="https://www.nps.gov/yose/planyourvisit/glacierpoint.htm" target="_blank">
+									Glacier Point
+								</a>
+							</li>
+							<li>
+								<a href="https://www.nps.gov/yose/planyourvisit/tiogaroad.htm" target="_blank">
+									Tioga Road (Seasonal)
+								</a>
+							</li>
+							<li>
+								<a href="https://www.nps.gov/yose/planyourvisit/waterfalls.htm" target="_blank">
+									Waterfalls Guide
+								</a>
+							</li>
+						</ul>
+					</div>
+
+					<div class="info-card">
+						<h3>Local Activities</h3>
+						<ul>
+							<li>
+								<a href="https://www.travelyosemite.com/winter/badger-pass-ski-area/" target="_blank">
+									Badger Pass Ski Area
+								</a>
+							</li>
+							<li>
+								<a href="https://www.nps.gov/yose/planyourvisit/climbing.htm" target="_blank">
+									Rock Climbing
+								</a>
+							</li>
+							<li>
+								<a href="https://www.nps.gov/yose/planyourvisit/fishing.htm" target="_blank">
+									Fishing Information
+								</a>
+							</li>
+							<li>
+								<a href="https://www.travelyosemite.com/things-to-do/rafting/" target="_blank">
+									River Rafting
+								</a>
+							</li>
+						</ul>
+					</div>
+
+					<div class="info-card">
+						<h3>Important Information</h3>
+						<ul>
+							<li>
+								<a href="https://www.nps.gov/yose/planyourvisit/yoursafety.htm" target="_blank">
+									Safety Guidelines
+								</a>
+							</li>
+							<li>
+								<a href="https://www.nps.gov/yose/planyourvisit/weather.htm" target="_blank">
+									Weather & Seasons
+								</a>
+							</li>
+							<li>
+								<a href="https://www.nps.gov/yose/planyourvisit/bears.htm" target="_blank">
+									Bear Safety
+								</a>
+							</li>
+							<li>
+								<a href="https://www.nps.gov/yose/planyourvisit/accessibility.htm" target="_blank">
+									Accessibility
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="park-notice">
+					<h3>Important Notice</h3>
+					<p>Yosemite National Park may require advance reservations during peak periods. Always check the official National Park Service website before your visit for:</p>
+					<ul>
+						<li>Current reservation requirements</li>
+						<li>Road closures and conditions</li>
+						<li>Trail status</li>
+						<li>Weather alerts</li>
+						<li>Fire information</li>
+					</ul>
+					<a href="https://www.nps.gov/yose/planyourvisit/conditions.htm" 
+					   class="primary-button" 
+					   target="_blank" 
+					   rel="noopener noreferrer">
+						Check Current Park Conditions
+					</a>
+				</div>
+			</section>
+
+			<section id="activities" class="activities">
+				<h2>Activities by Season</h2>
+				<div class="activities-grid">
+					{Object.entries(siteInfo.seasonalActivities).map(([season, info]) => (
+						<div class={`activity-box ${season === currentSeason ? 'current' : ''}`}>
+							<div class="activity-carousel">
+								<div class="carousel-images">
+									<img src={info.image} alt={`${season} activities`} class="active" />
+									{info.additionalImages?.map(img => (
+										<img src={img} alt={`${season} activities`} loading="lazy" />
+									))}
+								</div>
+								<button class="carousel-prev" aria-label="Previous image">←</button>
+								<button class="carousel-next" aria-label="Next image">→</button>
+							</div>
+							<div class="activity-content">
+								<h3>{season.charAt(0).toUpperCase() + season.slice(1)}</h3>
+								<p class="temp">{info.temp}</p>
+								<p class="highlight">{info.highlights}</p>
+								<ul class="activity-list">
+									{info.activities.map(activity => (
+										<li>{activity}</li>
+									))}
+								</ul>
+							</div>
+						</div>
+					))}
+				</div>
+			</section>
+
+			<section class="rules">
+				<h2>House Rules & Information</h2>
+				<div class="rules-grid">
+					<div class="rules-list">
+						<ul>
+							{siteInfo.houseRules.map(rule => (
+								<li>{rule}</li>
+							))}
+						</ul>
+					</div>
+				</div>
+			</section>
+
+			<section id="transportation" class="transportation">
+				<h2>Getting Here & Around</h2>
+				<div class="transport-grid">
+					<div class="transport-option">
+						<h3>YARTS Bus Service</h3>
+						<p>{siteInfo.transportation["YARTS Bus"].description}</p>
+						<p>Schedule: {siteInfo.transportation["YARTS Bus"].schedule}</p>
+						<p>Cost: {siteInfo.transportation["YARTS Bus"].cost}</p>
+						<a href={siteInfo.transportation["YARTS Bus"].url} target="_blank" rel="noopener noreferrer">
+							View Schedule & Book Tickets
+						</a>
+					</div>
+
+					<div class="transport-option">
+						<h3>Rental Cars</h3>
+						<p>{siteInfo.transportation["Rental Cars"].description}</p>
+						<ul>
+							{siteInfo.transportation["Rental Cars"].locations.map(location => (
+								<li>{location}</li>
+							))}
+						</ul>
+					</div>
+
+					<div class="transport-option">
+						<h3>Private Shuttle Services</h3>
+						<p>{siteInfo.transportation["Private Shuttle"].description}</p>
+						<ul>
+							{siteInfo.transportation["Private Shuttle"].providers.map(provider => (
+								<li>{provider}</li>
+							))}
+						</ul>
+					</div>
+				</div>
+			</section>
+		</div>
+	</main>
+</Layout>
+
+<style>
+	.container {
+		width: 100%;
+		overflow-x: hidden;
+	}
+
+	.content-wrapper {
+		max-width: 1400px;
+		margin: 0 auto;
+		padding: 0 1rem;
+	}
+
+	.hero {
+		position: relative;
+		height: 100vh;
+		min-height: 600px;
+		overflow: hidden;
+	}
+
+	.hero-carousel {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	.hero-carousel img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		opacity: 0;
+		transition: opacity 1s ease-in-out;
+		transform: scale(1.1); /* For parallax effect */
+	}
+
+	.hero-carousel img.active {
+		opacity: 1;
+	}
+
+	.hero-content {
+		position: relative;
+		z-index: 2;
+		text-align: center;
+		color: white;
+		padding: 2rem;
+		background: rgba(0, 0, 0, 0.3);
+		border-radius: 8px;
+		backdrop-filter: blur(4px);
+	}
+
+	.hero-cta {
+		margin-top: 2rem;
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+	}
+
+	.cta-button {
+		padding: 1rem 2rem;
+		border-radius: 4px;
+		text-decoration: none;
+		font-weight: 600;
+		transition: transform 0.2s;
+	}
+
+	.cta-button:first-child {
+		background: var(--accent);
+		color: white;
+	}
+
+	.cta-button.secondary {
+		background: transparent;
+		border: 2px solid white;
+		color: white;
+	}
+
+	.cta-button:hover {
+		transform: translateY(-2px);
+	}
+
+	.scroll-indicator {
+		position: absolute;
+		bottom: 2rem;
+		left: 50%;
+		transform: translateX(-50%);
+		color: white;
+		text-align: center;
+		animation: bounce 2s infinite;
+	}
+
+	.chevron {
+		width: 20px;
+		height: 20px;
+		border-right: 3px solid white;
+		border-bottom: 3px solid white;
+		transform: rotate(45deg);
+		margin: 1rem auto;
+	}
+
+	@keyframes bounce {
+		0%, 20%, 50%, 80%, 100% {
+			transform: translateY(0);
+		}
+		40% {
+			transform: translateY(-10px);
+		}
+		60% {
+			transform: translateY(-5px);
+		}
+	}
+
+	/* Parallax effect */
+	.hero-carousel img {
+		transition: transform 0.5s ease-out;
+	}
+
+	.hero:hover .hero-carousel img.active {
+		transform: scale(1.05);
+	}
+
+	.rooms-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+		padding: 2rem;
+	}
+
+	.room-card {
+		border-radius: 8px;
+		overflow: hidden;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+		transition: transform 0.2s;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.room-card:hover {
+		transform: translateY(-4px);
+	}
+
+	.room-card img {
+		width: 100%;
+		height: 200px;
+		object-fit: cover;
+	}
+
+	.room-info {
+		padding: 1rem;
+	}
+
+	h2 {
+		margin: 0;
+		font-size: 1.5rem;
+		color: var(--text);
+	}
+
+	.rating {
+		color: var(--accent);
+		margin: 0.5rem 0;
+	}
+
+	.capacity {
+		color: var(--text-light);
+	}
+
+	.reviews {
+		padding: 4rem 2rem;
+		background: var(--background-alt);
+	}
+
+	.reviews h2 {
+		text-align: center;
+		margin-bottom: 2rem;
+	}
+
+	.review-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+		margin-bottom: 4rem;
+	}
+
+	.review-source {
+		background: white;
+		padding: 1rem;
+		border-radius: 8px;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+	}
+
+	.review-source h3 {
+		margin: 0 0 1rem 0;
+		text-align: center;
+	}
+
+	.trust-badges {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		gap: 2rem;
+		text-align: center;
+	}
+
+	.badge {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.badge .large {
+		font-size: 2.5rem;
+		font-weight: bold;
+		color: var(--accent);
+	}
+
+	.location {
+		padding: 4rem 2rem;
+		background: var(--background);
+	}
+
+	.location h2 {
+		text-align: center;
+		margin-bottom: 2rem;
+	}
+
+	.info-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 2rem;
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.info-grid > div {
+		background: white;
+		padding: 2rem;
+		border-radius: 8px;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+	}
+
+	.info-grid h3 {
+		color: var(--accent);
+		margin: 0 0 1rem 0;
+	}
+
+	.info-grid ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.info-grid li {
+		margin-bottom: 0.5rem;
+	}
+
+	.info-grid a {
+		color: var(--accent);
+		text-decoration: none;
+	}
+
+	.info-grid a:hover {
+		text-decoration: underline;
+	}
+
+	.activities {
+		padding: 4rem 2rem;
+		background: var(--background-alt);
+	}
+
+	.activities-grid {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		max-width: 1000px;
+		margin: 0 auto;
+	}
+
+	.activity-box {
+		background: white;
+		border-radius: 12px;
+		overflow: hidden;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2rem;
+		transition: transform 0.3s ease;
+	}
+
+	.activity-box:hover {
+		transform: translateY(-4px);
+	}
+
+	.activity-box.current {
+		border: 2px solid var(--accent);
+	}
+
+	.activity-carousel {
+		position: relative;
+		height: 400px;
+		overflow: hidden;
+	}
+
+	.carousel-images {
+		height: 100%;
+	}
+
+	.carousel-images img {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		opacity: 0;
+		transition: opacity 0.5s ease;
+	}
+
+	.carousel-images img.active {
+		opacity: 1;
+	}
+
+	.carousel-prev,
+	.carousel-next {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		background: rgba(0,0,0,0.5);
+		color: white;
+		border: none;
+		padding: 1rem;
+		cursor: pointer;
+		font-size: 1.5rem;
+		border-radius: 50%;
+		width: 48px;
+		height: 48px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: background-color 0.3s;
+	}
+
+	.carousel-prev:hover,
+	.carousel-next:hover {
+		background: rgba(0,0,0,0.7);
+	}
+
+	.carousel-prev {
+		left: 1rem;
+	}
+
+	.carousel-next {
+		right: 1rem;
+	}
+
+	.activity-content {
+		padding: 2rem;
+	}
+
+	.temp {
+		color: var(--text-light);
+		font-size: 0.9rem;
+		margin: 0.5rem 0;
+	}
+
+	.highlight {
+		color: var(--accent);
+		font-weight: 600;
+		margin-bottom: 1rem;
+	}
+
+	.activity-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.activity-list li {
+		padding: 0.5rem 0;
+		border-bottom: 1px solid var(--border);
+	}
+
+	.activity-list li:last-child {
+		border-bottom: none;
+	}
+
+	@media (max-width: 768px) {
+		.activity-box {
+			grid-template-columns: 1fr;
+		}
+
+		.activity-carousel {
+			height: 300px;
+		}
+	}
+
+	.rules {
+		padding: 4rem 2rem;
+		background: var(--background);
+	}
+
+	.rules-grid {
+		max-width: 800px;
+		margin: 0 auto;
+		background: white;
+		padding: 2rem;
+		border-radius: 8px;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+	}
+
+	.rules-list ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.rules-list li {
+		padding: 0.5rem 0;
+		border-bottom: 1px solid var(--border);
+	}
+
+	.rules-list li:last-child {
+		border-bottom: none;
+	}
+
+	h2 {
+		text-align: center;
+		margin-bottom: 2rem;
+	}
+
+	h3 {
+		color: var(--accent);
+		margin: 0 0 1rem 0;
+	}
+
+	@media (max-width: 768px) {
+		.review-grid {
+			grid-template-columns: 1fr;
+		}
+		.info-grid {
+			grid-template-columns: 1fr;
+		}
+		.activities-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.page-nav {
+		position: sticky;
+		top: 0;
+		background: white;
+		padding: 1rem;
+		box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+		z-index: 100;
+		transition: transform 0.3s ease;
+	}
+
+	.nav-links {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		justify-content: center;
+		gap: 2rem;
+		flex-wrap: wrap;
+		transition: opacity 0.3s ease, visibility 0.3s ease;
+	}
+
+	.nav-links a {
+		color: var(--text);
+		text-decoration: none;
+		font-weight: 500;
+		padding: 0.5rem 1rem;
+		border-radius: 4px;
+		transition: all 0.2s ease;
+	}
+
+	.nav-links a:hover,
+	.nav-links a.active {
+		background-color: var(--accent);
+		color: white;
+	}
+
+	.mobile-menu-btn {
+		display: none;
+		background: none;
+		border: none;
+		padding: 0.5rem;
+		cursor: pointer;
+	}
+
+	.menu-icon {
+		display: block;
+		width: 24px;
+		height: 2px;
+		background: var(--text);
+		position: relative;
+		transition: background-color 0.3s ease;
+	}
+
+	.menu-icon::before,
+	.menu-icon::after {
+		content: '';
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background: var(--text);
+		transition: transform 0.3s ease;
+	}
+
+	.menu-icon::before {
+		transform: translateY(-8px);
+	}
+
+	.menu-icon::after {
+		transform: translateY(8px);
+	}
+
+	.mobile-menu-open .menu-icon {
+		background: transparent;
+	}
+
+	.mobile-menu-open .menu-icon::before {
+		transform: rotate(45deg);
+	}
+
+	.mobile-menu-open .menu-icon::after {
+		transform: rotate(-45deg);
+	}
+
+	@media (max-width: 768px) {
+		.mobile-menu-btn {
+			display: block;
+		}
+
+		.nav-links {
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+			flex-direction: column;
+			background: white;
+			padding: 1rem;
+			gap: 1rem;
+			visibility: hidden;
+			opacity: 0;
+			transform: translateY(-1rem);
+			transition: all 0.3s ease;
+		}
+
+		.mobile-menu-open .nav-links {
+			visibility: visible;
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		.nav-links a {
+			display: block;
+			text-align: center;
+			padding: 0.75rem;
+		}
+	}
+
+	.transport-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.transport-option {
+		background: white;
+		padding: 2rem;
+		border-radius: 8px;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+	}
+
+	.transport-option h3 {
+		color: var(--accent);
+		margin-bottom: 1rem;
+	}
+
+	.transport-option a {
+		display: inline-block;
+		margin-top: 1rem;
+		color: var(--accent);
+		text-decoration: none;
+	}
+
+	.transport-option a:hover {
+		text-decoration: underline;
+	}
+
+	/* Add smooth scrolling */
+	html {
+		scroll-behavior: smooth;
+		scroll-padding-top: 80px;
+	}
+
+	.map-links {
+		margin: 0.5rem 0;
+		font-size: 0.9rem;
+	}
+
+	.map-links a {
+		color: var(--accent);
+		text-decoration: none;
+	}
+
+	.map-links a:hover {
+		text-decoration: underline;
+	}
+
+	.separator {
+		margin: 0 0.5rem;
+		color: var(--text-light);
+	}
+
+	.park-notice {
+		background: var(--background);
+		padding: 4rem 2rem;
+		margin-bottom: 2rem;
+	}
+
+	.notice-content {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.notice-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+		margin-top: 2rem;
+	}
+
+	.notice-card {
+		background: white;
+		padding: 2rem;
+		border-radius: 8px;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+		border-top: 4px solid var(--accent);
+	}
+
+	.conditions-widget,
+	.map-embed {
+		margin: 1rem 0;
+		border-radius: 4px;
+		overflow: hidden;
+	}
+
+	.map-links {
+		margin-top: 1rem;
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+	}
+
+	.map-links a {
+		color: var(--accent);
+		text-decoration: none;
+	}
+
+	.map-links a:hover {
+		text-decoration: underline;
+	}
+
+	.park-info {
+		padding: 4rem 2rem;
+		background: var(--background-alt);
+	}
+
+	.info-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 2rem;
+		max-width: 1200px;
+		margin: 0 auto 2rem;
+	}
+
+	.info-card {
+		background: white;
+		padding: 2rem;
+		border-radius: 8px;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+	}
+
+	.info-card ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+
+	.info-card li {
+		margin-bottom: 1rem;
+	}
+
+	.info-card a {
+		color: var(--accent);
+		text-decoration: none;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.info-card a:hover {
+		text-decoration: underline;
+	}
+
+	.park-notice {
+		max-width: 800px;
+		margin: 0 auto;
+		background: white;
+		padding: 2rem;
+		border-radius: 8px;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+		border-top: 4px solid var(--accent);
+	}
+
+	.primary-button {
+		display: inline-block;
+		background: var(--accent);
+		color: white;
+		padding: 1rem 2rem;
+		border-radius: 4px;
+		text-decoration: none;
+		margin-top: 1rem;
+		transition: background-color 0.2s;
+	}
+
+	.primary-button:hover {
+		background: var(--accent-dark);
+	}
+
+	/* Add active state for nav links */
+	.page-nav a.active {
+		background-color: var(--accent);
+		color: white;
+	}
+</style>
+
+<!-- Yelp Reviews Script -->
+<script async src="https://www.yelp.com/embed/widgets.js"></script>
+
+<script>
+	// Hero image carousel
+	const images = document.querySelectorAll<HTMLImageElement>('.hero-carousel img');
+	let currentImage = 0;
+
+	function nextImage() {
+		images[currentImage].classList.remove('active');
+		currentImage = (currentImage + 1) % images.length;
+		images[currentImage].classList.add('active');
+	}
+
+	// Change image every 5 seconds
+	setInterval(nextImage, 5000);
+
+	// Parallax effect on scroll
+	window.addEventListener('scroll', () => {
+		const scrolled = window.pageYOffset;
+		const hero = document.querySelector<HTMLElement>('.hero');
+		const heroHeight = hero?.offsetHeight || 0;
+		
+		if (scrolled <= heroHeight) {
+			const activeImage = document.querySelector<HTMLImageElement>('.hero-carousel img.active');
+			if (activeImage) {
+				activeImage.style.transform = `scale(1.1) translateY(${scrolled * 0.5}px)`;
+			}
+		}
+	});
+
+	// Initialize carousels
+	document.querySelectorAll<HTMLDivElement>('.activity-box').forEach(box => {
+		const images = box.querySelectorAll<HTMLImageElement>('.carousel-images img');
+		const prev = box.querySelector<HTMLButtonElement>('.carousel-prev');
+		const next = box.querySelector<HTMLButtonElement>('.carousel-next');
+		let currentIndex = 0;
+
+		function showImage(index: number) {
+			images.forEach(img => img.classList.remove('active'));
+			images[index].classList.add('active');
+		}
+
+		prev?.addEventListener('click', () => {
+			currentIndex = (currentIndex - 1 + images.length) % images.length;
+			showImage(currentIndex);
+		});
+
+		next?.addEventListener('click', () => {
+			currentIndex = (currentIndex + 1) % images.length;
+			showImage(currentIndex);
+		});
+
+		// Touch support
+		let touchStartX = 0;
+		const carousel = box.querySelector<HTMLDivElement>('.activity-carousel');
+
+		carousel?.addEventListener('touchstart', e => {
+			touchStartX = e.touches[0].clientX;
+		});
+
+		carousel?.addEventListener('touchend', e => {
+			const diff = touchStartX - e.changedTouches[0].clientX;
+			if (Math.abs(diff) > 50) {
+				if (diff > 0) {
+					next?.click();
+				} else {
+					prev?.click();
+				}
+			}
+		});
+	});
+
+	// Add scroll spy for navigation
+	const sections = document.querySelectorAll('section[id]');
+	const navLinks = document.querySelectorAll<HTMLAnchorElement>('.nav-links a');
+
+	function updateActiveLink() {
+		const scrollPosition = window.scrollY + 100; // Offset for nav height
+
+		sections.forEach(section => {
+			const sectionTop = section.offsetTop;
+			const sectionHeight = section.clientHeight;
+			const sectionId = section.getAttribute('id');
+
+			if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+				navLinks.forEach(link => {
+					link.classList.remove('active');
+					if (link.getAttribute('href') === `#${sectionId}`) {
+						link.classList.add('active');
+					}
+				});
+			}
+		});
+	}
+
+	window.addEventListener('scroll', updateActiveLink);
+	updateActiveLink(); // Initial call
+
+	// Mobile menu toggle
+	const mobileMenuBtn = document.querySelector<HTMLButtonElement>('.mobile-menu-btn');
+	const pageNav = document.querySelector<HTMLElement>('.page-nav');
+	let lastScroll = 0;
+
+	mobileMenuBtn?.addEventListener('click', () => {
+		pageNav?.classList.toggle('mobile-menu-open');
+	});
+
+	// Close menu when clicking outside
+	document.addEventListener('click', (e) => {
+		const target = e.target as HTMLElement;
+		if (!target.closest('.page-nav') && pageNav?.classList.contains('mobile-menu-open')) {
+			pageNav.classList.remove('mobile-menu-open');
+		}
+	});
+
+	// Hide nav on scroll down, show on scroll up
+	window.addEventListener('scroll', () => {
+		const currentScroll = window.pageYOffset;
+		if (currentScroll > lastScroll && currentScroll > 100) {
+			pageNav?.classList.add('nav-hidden');
+		} else {
+			pageNav?.classList.remove('nav-hidden');
+		}
+		lastScroll = currentScroll;
+	});
+
+	// Close mobile menu on navigation
+	document.querySelectorAll<HTMLAnchorElement>('.nav-links a').forEach(link => {
+		link.addEventListener('click', () => {
+			pageNav?.classList.remove('mobile-menu-open');
+		});
+	});
+</script> 
