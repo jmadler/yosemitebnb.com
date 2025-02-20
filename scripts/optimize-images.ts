@@ -1,77 +1,51 @@
 import sharp from 'sharp';
-import { readdir, mkdir } from 'fs/promises';
-import { join } from 'path';
-import type { Sharp } from 'sharp';
-
-const ROOM_DIRS = [
-    'yosemite-falls',
-    'mariposa-grove',
-    'el-capitan',
-    'half-dome'
-];
-
-interface OptimizeOptions {
-    width?: number;
-    height?: number;
-    quality?: number;
-}
-
-async function optimizeImage(
-    input: string,
-    output: string,
-    options: OptimizeOptions = {}
-): Promise<void> {
-    try {
-        // ... optimization logic
-    } catch (error) {
-        throw new Error(`Failed to optimize image: ${(error as Error).message}`);
-    }
-}
+import glob from 'glob';
+import path from 'path';
+import fs from 'fs/promises';
 
 async function optimizeImages() {
-    const sourceDir = 'original-images';
-    const targetBaseDir = 'public/images';
+  try {
+    // Only target images in subdirectories, skip root level images
+    const imageFiles = glob.sync('public/images/{rooms,seasons,lodge}/**/*.{jpg,jpeg,png}');
 
-    try {
-        // Create room directories
-        for (const roomDir of ROOM_DIRS) {
-            await mkdir(join(targetBaseDir, roomDir), { recursive: true });
+    for (const imagePath of imageFiles) {
+      try {
+        const image = sharp(imagePath);
+        const info = await image.metadata();
+
+        // Skip if image is already optimized
+        if (info.size && info.size < 500000) {
+          console.log(`Skipping already optimized image: ${imagePath}`);
+          continue;
         }
 
-        // Process each room's images
-        for (const roomDir of ROOM_DIRS) {
-            const roomSourceDir = join(sourceDir, roomDir);
-            const roomTargetDir = join(targetBaseDir, roomDir);
+        const optimized = await image
+          .resize({
+            width: 1920,
+            height: 1080,
+            fit: 'inside',
+            withoutEnlargement: true
+          })
+          .jpeg({ 
+            quality: 80,
+            mozjpeg: true
+          })
+          .toBuffer();
 
-            try {
-                const files = await readdir(roomSourceDir, { withFileTypes: true });
+        // Save back to same location
+        await fs.writeFile(imagePath, optimized);
+        console.log(`Optimized: ${imagePath}`);
 
-                for (const file of files) {
-                    if (file.isFile() && /\.(jpg|jpeg|png)$/i.test(file.name)) {
-                        const sourcePath = join(roomSourceDir, file.name);
-                        const targetPath = join(roomTargetDir, file.name);
-
-                        await sharp(sourcePath)
-                            .resize(1920, 1080, {
-                                fit: 'inside',
-                                withoutEnlargement: true
-                            })
-                            .jpeg({ 
-                                quality: 80,
-                                mozjpeg: true
-                            })
-                            .toFile(targetPath);
-
-                        console.log(`Optimized: ${roomDir}/${file.name}`);
-                    }
-                }
-            } catch (error) {
-                console.warn(`Warning: Could not process ${roomDir}:`, error instanceof Error ? error.message : String(error));
-            }
-        }
-    } catch (error) {
-        console.error('Error optimizing images:', error);
+      } catch (fileError) {
+        console.error(`Error processing ${imagePath}:`, fileError);
+        continue; // Skip to next file on error
+      }
     }
+
+    console.log('Image optimization complete!');
+  } catch (error) {
+    console.error('Error optimizing images:', error);
+  }
 }
 
 optimizeImages(); 

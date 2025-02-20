@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@testing-library/dom": "^9.3.4",
+    "@types/glob": "^8.1.0",
     "@types/node": "^22.13.4",
     "@types/node-fetch": "^2.6.12",
     "@types/sharp": "^0.31.1",

@@ -3,7 +3,7 @@ export const rooms = {
   "yosemite-falls": {
     "id": "yosemite-falls",
     "label": "Yosemite Falls Suite",
-    "description": "",
+    "description": "Our premier suite featuring stunning mountain views and a spacious layout. This luxurious accommodation includes a full kitchen, comfortable queen bed, and modern bathroom with walk-in shower. Perfect for couples seeking a romantic getaway, the suite offers a cozy living room with a 60-inch smart TV, dedicated workspace, and access to our shared hot tub. Enjoy the perfect blend of comfort and mountain charm.",
     "images": [
       "/images/rooms/yosemite-falls/yosemite-falls-suite-exterior-view.jpg",
       "/images/rooms/yosemite-falls/yosemite-falls-suite-queen-bedroom.jpg",
@@ -40,7 +40,7 @@ export const rooms = {
   "mariposa-grove": {
     "id": "mariposa-grove",
     "label": "Mariposa Grove Suite",
-    "description": "",
+    "description": "A cozy retreat ideal for solo travelers or business guests, the Mariposa Grove Suite offers a peaceful mountain view and all the comforts of home. Featuring a well-equipped kitchen, comfortable sleeping area, and modern amenities including a smart TV and high-speed WiFi. The dedicated workspace makes it perfect for remote work, while the shared hot tub provides relaxation after a day of exploring.",
     "images": [
       "/images/rooms/mariposa-grove/mariposa-grove-suite-entrance.jpg",
       "/images/rooms/mariposa-grove/mariposa-grove-suite-living-space.jpg",
@@ -77,7 +77,7 @@ export const rooms = {
   "el-capitan": {
     "id": "el-capitan",
     "label": "El Capitan Suite",
-    "description": "",
+    "description": "Experience comfort and convenience in our El Capitan Suite, thoughtfully designed for the solo adventurer. This modern suite features a full kitchen, comfortable sleeping area, and a spacious desk for remote work. Enjoy mountain views, a 43-inch smart TV with streaming services, and access to our shared hot tub. The perfect base camp for your Yosemite adventure.",
     "images": [
       "/images/rooms/el-capitan/el-capitan-suite-entrance-view.jpg",
       "/images/rooms/el-capitan/el-capitan-suite-bedroom-area.jpg",
@@ -114,7 +114,7 @@ export const rooms = {
   "half-dome": {
     "id": "half-dome",
     "label": "Half Dome Suite",
-    "description": "",
+    "description": "The Half Dome Suite offers a perfect blend of comfort and functionality for solo travelers. This well-appointed suite includes a modern kitchenette, comfortable bed, and dedicated workspace. Enjoy mountain views, a 43-inch smart TV, and access to our shared hot tub. Whether you're here for work or adventure, this suite provides all the essentials for a memorable stay.",
     "images": [
       "/images/rooms/half-dome/half-dome-suite-entrance.jpg",
       "/images/rooms/half-dome/half-dome-suite-living-space.jpg",
