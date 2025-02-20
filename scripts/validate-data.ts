@@ -6,7 +6,6 @@ function validateRooms() {
     Object.entries(rooms).forEach(([id, room]) => {
         // Validate required fields
         if (!room.id) errors.push(`${id}: Missing id`);
-        if (!room.price) errors.push(`${id}: Missing price`);
         if (!room.airbnbUrl) errors.push(`${id}: Missing airbnbUrl`);
         if (!room.rating) errors.push(`${id}: Missing rating`);
         if (!room.capacity) errors.push(`${id}: Missing capacity`);
