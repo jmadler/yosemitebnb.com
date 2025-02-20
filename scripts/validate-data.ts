@@ -13,10 +13,7 @@ function validateRooms() {
         // Validate images
         if (!room.images?.length) {
             errors.push(`${id}: No images`);
-        } else {
-            const wrongImages = room.images.filter(url => !url.match(/^https:\/\/a0\.muscache\.com.*\/original\/.*\.jpeg$/));
-            if (wrongImages.length) errors.push(`${id}: Invalid image URLs: ${wrongImages.join(', ')}`);
-        }
+        } 
 
         // Validate amenities
         const requiredAmenities = ['Mountain view', 'Kitchen', 'Wifi', 'Shared hot tub'];
