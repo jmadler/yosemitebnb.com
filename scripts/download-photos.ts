@@ -1,28 +1,28 @@
-import type { Browser, Page } from 'puppeteer';
+import fs from 'fs';
+import path from 'path';
+import { rooms } from '../src/data/rooms';
+import fetch from 'node-fetch';
 
-interface ImageUrl {
-    url: string;
-    filename: string;
+async function downloadImage(url: string, filepath: string) {
+    const response = await fetch(url);
+    const buffer = await response.buffer();
+    await fs.promises.mkdir(path.dirname(filepath), { recursive: true });
+    await fs.promises.writeFile(filepath, buffer);
 }
 
-async function waitForImages(page: Page): Promise<void> {
-    try {
-        await page.waitForFunction(() => {
-            const images = document.querySelectorAll('img[src*="googleusercontent"]');
-            return images.length > 10;
-        }, { timeout: 30000 });
-    } catch (error) {
-        throw new Error(`Timeout waiting for images: ${(error as Error).message}`);
+async function downloadAllImages() {
+    for (const [roomId, room] of Object.entries(rooms)) {
+        console.log(`Downloading images for ${roomId}...`);
+        
+        for (let i = 0; i < room.images.length; i++) {
+            const url = room.images[i];
+            const filename = `${i + 1}.jpg`;
+            const filepath = path.join('public', 'images', 'rooms', roomId, filename);
+            
+            await downloadImage(url, filepath);
+            console.log(`Downloaded ${filename}`);
+        }
     }
 }
 
-async function processImages(): Promise<void> {
-    try {
-        // ... rest of function
-    } catch (error) {
-        console.error('Error processing images:', error instanceof Error ? error.message : error);
-        process.exit(1);
-    }
-}
-
-void processImages(); 
+downloadAllImages().catch(console.error); 

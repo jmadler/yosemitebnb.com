@@ -306,7 +306,7 @@ const currentSeason = getCurrentSeason();
 				<p>Your cozy mountain retreat near Yosemite National Park</p>
 				<div class="hero-cta">
 					<a href="#rooms" class="cta-button">View Rooms</a>
-					<a href="tel:2099666666" class="cta-button secondary">Call Us</a>
+					<a href="tel:2097424019" class="cta-button secondary">Call Us</a>
 				</div>
 			</div>
 			<div class="scroll-indicator">
@@ -320,14 +320,25 @@ const currentSeason = getCurrentSeason();
 				<h2>Important Yosemite National Park Information</h2>
 				<div class="notice-grid">
 					<div class="notice-card">
-						<h3>Park Reservations</h3>
-						<p>Yosemite National Park may require reservations during peak periods.</p>
-						<a href="https://www.nps.gov/yose/planyourvisit/reservations.htm" 
-						   class="notice-link" 
-						   target="_blank" 
-						   rel="noopener noreferrer">
-							Check Reservation Requirements →
-						</a>
+						<h3>Park Information</h3>
+						<div class="external-links">
+							<a href="https://www.nps.gov/yose/planyourvisit/conditions.htm" class="external-link" target="_blank" rel="noopener noreferrer">
+								<span class="external-link-icon">🌲</span>
+								<span class="external-link-text">Current Conditions</span>
+							</a>
+							<a href="https://www.nps.gov/yose/planyourvisit/reservations.htm" class="external-link" target="_blank" rel="noopener noreferrer">
+								<span class="external-link-icon">🎫</span>
+								<span class="external-link-text">Reservations</span>
+							</a>
+							<a href="https://www.nps.gov/yose/planyourvisit/hiking.htm" class="external-link" target="_blank" rel="noopener noreferrer">
+								<span class="external-link-icon">🥾</span>
+								<span class="external-link-text">Hiking Trails</span>
+							</a>
+							<a href="https://www.nps.gov/yose/planyourvisit/weather.htm" class="external-link" target="_blank" rel="noopener noreferrer">
+								<span class="external-link-icon">🌤️</span>
+								<span class="external-link-text">Weather Info</span>
+							</a>
+						</div>
 					</div>
 
 					<div class="notice-card">
@@ -337,8 +348,8 @@ const currentSeason = getCurrentSeason();
 							   data-label_1="MIDPINES" 
 							   data-label_2="WEATHER" 
 							   data-theme="original" >MIDPINES WEATHER</a>
-							<script>
-							!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+							<script is:inline>
+							!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode?.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
 							</script>
 						</div>
 						<a href="https://www.nps.gov/yose/planyourvisit/conditions.htm" 
@@ -353,22 +364,24 @@ const currentSeason = getCurrentSeason();
 						<h3>Location & Directions</h3>
 						<div class="map-embed">
 							<iframe 
-								src={`https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=${encodeURIComponent(siteInfo.address)}`}
 								width="100%" 
 								height="200" 
 								style="border:0;" 
-								allowfullscreen="" 
 								loading="lazy" 
-								referrerpolicy="no-referrer-when-downgrade">
-							</iframe>
+								allowfullscreen
+								src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2359.825042541392!2d-119.9278703875729!3d37.55537857062617!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8096b8f5a2d3aad3%3A0x2f2014a61205154!2sThe%20Getaway!5e1!3m2!1sen!2sus!4v1740016303879!5m2!1sen!2sus"
+							></iframe>
 						</div>
 						<div class="map-links">
-							<a href={siteInfo.maps.google} target="_blank" rel="noopener noreferrer">
-								Open in Google Maps
+							<a href="https://maps.google.com/?q=The+Getaway+6484A+CA-140+Midpines+CA+95345" 
+							   class="external-link" target="_blank" rel="noopener noreferrer">
+								<span class="external-link-icon">📍</span>
+								<span class="external-link-text">Open in Google Maps</span>
 							</a>
-							<span class="separator">|</span>
-							<a href={siteInfo.maps.apple} target="_blank" rel="noopener noreferrer">
-								Open in Apple Maps
+							<a href="http://maps.apple.com/?q=The+Getaway+6484A+CA-140+Midpines+CA+95345" 
+							   class="external-link" target="_blank" rel="noopener noreferrer">
+								<span class="external-link-icon">📍</span>
+								<span class="external-link-text">Open in Apple Maps</span>
 							</a>
 						</div>
 					</div>
@@ -382,9 +395,9 @@ const currentSeason = getCurrentSeason();
 				<div class="rooms-grid">
 					{roomsArray.map(room => (
 						<a href={`/rooms/${room.id}`} class="room-card">
-							<img src={room.images[0]} alt={room.id} />
+							<img src={room.images[0]} alt={room.label} />
 							<div class="room-info">
-								<h2>{room.id}</h2>
+								<h2>{room.label}</h2>
 								<p class="rating">★{room.rating}</p>
 								<p class="capacity">{room.capacity}</p>
 							</div>
@@ -478,144 +491,155 @@ const currentSeason = getCurrentSeason();
 						</ul>
 					</div>
 
-					<div class="attractions">
-						<h3>Nearby Attractions</h3>
-						<ul>
+					<div class="area-info">
+						<h3>Area Information</h3>
+						<div class="external-links">
 							{siteInfo.nearbyAttractions.map(attraction => (
-								<li>
-									<a href={attraction.url} target="_blank" rel="noopener noreferrer">
-										{attraction.name}
-									</a> - {attraction.description}
-								</li>
+								<a href={attraction.url} class="external-link" target="_blank" rel="noopener noreferrer">
+									<span class="external-link-icon">🏔️</span>
+									<span class="external-link-text">{attraction.name}</span>
+								</a>
 							))}
-						</ul>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="amenities" class="amenities">
+				<h2>Amenities & Features</h2>
+				<div class="amenities-grid">
+					<div class="amenity-category">
+						<h3>Room Features</h3>
+						<div class="external-links">
+							<div class="external-link">
+								<span class="external-link-icon">🛏️</span>
+								<span class="external-link-text">Comfortable Queen Beds</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">📺</span>
+								<span class="external-link-text">Smart TV with Streaming</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">❄️</span>
+								<span class="external-link-text">Air Conditioning</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">🔒</span>
+								<span class="external-link-text">Private Entrance</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="amenity-category">
+						<h3>Kitchen & Dining</h3>
+						<div class="external-links">
+							<div class="external-link">
+								<span class="external-link-icon">🍳</span>
+								<span class="external-link-text">Full Kitchen</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">☕</span>
+								<span class="external-link-text">Coffee Maker</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">🍽️</span>
+								<span class="external-link-text">Dining Area</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">🧊</span>
+								<span class="external-link-text">Refrigerator</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="amenity-category">
+						<h3>Connectivity</h3>
+						<div class="external-links">
+							<div class="external-link">
+								<span class="external-link-icon">📶</span>
+								<span class="external-link-text">Fast WiFi</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">💻</span>
+								<span class="external-link-text">Work Space</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">📱</span>
+								<span class="external-link-text">Cell Service</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">🔌</span>
+								<span class="external-link-text">USB Charging</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="amenity-category">
+						<h3>Property Features</h3>
+						<div class="external-links">
+							<div class="external-link">
+								<span class="external-link-icon">🅿️</span>
+								<span class="external-link-text">Free Parking</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">🌄</span>
+								<span class="external-link-text">Mountain Views</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">🧺</span>
+								<span class="external-link-text">Laundry Facilities</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">♨️</span>
+								<span class="external-link-text">Shared Hot Tub</span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</section>
 
 			<section id="park-info" class="park-info">
 				<h2>Yosemite National Park Information</h2>
-				<div class="info-grid">
-					<div class="info-card">
-						<h3>Essential Links</h3>
-						<ul>
-							<li>
-								<a href="https://www.nps.gov/yose/planyourvisit/reservations.htm" target="_blank">
-									Entrance Reservations →
-								</a>
-							</li>
-							<li>
-								<a href="https://www.nps.gov/yose/planyourvisit/fees.htm" target="_blank">
-									Park Fees & Passes →
-								</a>
-							</li>
-							<li>
-								<a href="https://www.nps.gov/yose/planyourvisit/conditions.htm" target="_blank">
-									Current Conditions →
-								</a>
-							</li>
-							<li>
-								<a href="https://www.nps.gov/yose/planyourvisit/maps.htm" target="_blank">
-									Park Maps →
-								</a>
-							</li>
-						</ul>
-					</div>
-
-					<div class="info-card">
-						<h3>Popular Attractions</h3>
-						<ul>
-							<li>
-								<a href="https://www.nps.gov/yose/planyourvisit/valleyhikes.htm" target="_blank">
-									Yosemite Valley Trails
-								</a>
-							</li>
-							<li>
-								<a href="https://www.nps.gov/yose/planyourvisit/glacierpoint.htm" target="_blank">
-									Glacier Point
-								</a>
-							</li>
-							<li>
-								<a href="https://www.nps.gov/yose/planyourvisit/tiogaroad.htm" target="_blank">
-									Tioga Road (Seasonal)
-								</a>
-							</li>
-							<li>
-								<a href="https://www.nps.gov/yose/planyourvisit/waterfalls.htm" target="_blank">
-									Waterfalls Guide
-								</a>
-							</li>
-						</ul>
-					</div>
-
-					<div class="info-card">
-						<h3>Local Activities</h3>
-						<ul>
-							<li>
-								<a href="https://www.travelyosemite.com/winter/badger-pass-ski-area/" target="_blank">
-									Badger Pass Ski Area
-								</a>
-							</li>
-							<li>
-								<a href="https://www.nps.gov/yose/planyourvisit/climbing.htm" target="_blank">
-									Rock Climbing
-								</a>
-							</li>
-							<li>
-								<a href="https://www.nps.gov/yose/planyourvisit/fishing.htm" target="_blank">
-									Fishing Information
-								</a>
-							</li>
-							<li>
-								<a href="https://www.travelyosemite.com/things-to-do/rafting/" target="_blank">
-									River Rafting
-								</a>
-							</li>
-						</ul>
-					</div>
-
-					<div class="info-card">
-						<h3>Important Information</h3>
-						<ul>
-							<li>
-								<a href="https://www.nps.gov/yose/planyourvisit/yoursafety.htm" target="_blank">
-									Safety Guidelines
-								</a>
-							</li>
-							<li>
-								<a href="https://www.nps.gov/yose/planyourvisit/weather.htm" target="_blank">
-									Weather & Seasons
-								</a>
-							</li>
-							<li>
-								<a href="https://www.nps.gov/yose/planyourvisit/bears.htm" target="_blank">
-									Bear Safety
-								</a>
-							</li>
-							<li>
-								<a href="https://www.nps.gov/yose/planyourvisit/accessibility.htm" target="_blank">
-									Accessibility
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-
-				<div class="park-notice">
-					<h3>Important Notice</h3>
-					<p>Yosemite National Park may require advance reservations during peak periods. Always check the official National Park Service website before your visit for:</p>
-					<ul>
-						<li>Current reservation requirements</li>
-						<li>Road closures and conditions</li>
-						<li>Trail status</li>
-						<li>Weather alerts</li>
-						<li>Fire information</li>
-					</ul>
-					<a href="https://www.nps.gov/yose/planyourvisit/conditions.htm" 
-					   class="primary-button" 
-					   target="_blank" 
-					   rel="noopener noreferrer">
-						Check Current Park Conditions
+				<div class="external-links">
+					<a href="https://www.nps.gov/yose/planyourvisit/reservations.htm" class="external-link" target="_blank" rel="noopener noreferrer">
+						<span class="external-link-icon">🎫</span>
+						<span class="external-link-text">Entrance Reservations</span>
+					</a>
+					<a href="https://www.nps.gov/yose/planyourvisit/fees.htm" class="external-link" target="_blank" rel="noopener noreferrer">
+						<span class="external-link-icon">💰</span>
+						<span class="external-link-text">Park Fees & Passes</span>
+					</a>
+					<a href="https://www.nps.gov/yose/planyourvisit/conditions.htm" class="external-link" target="_blank" rel="noopener noreferrer">
+						<span class="external-link-icon">🌲</span>
+						<span class="external-link-text">Current Conditions</span>
+					</a>
+					<a href="https://www.nps.gov/yose/planyourvisit/maps.htm" class="external-link" target="_blank" rel="noopener noreferrer">
+						<span class="external-link-icon">🗺️</span>
+						<span class="external-link-text">Park Maps</span>
+					</a>
+					<a href="https://www.nps.gov/yose/planyourvisit/hiking.htm" class="external-link" target="_blank" rel="noopener noreferrer">
+						<span class="external-link-icon">🥾</span>
+						<span class="external-link-text">Hiking Trails</span>
+					</a>
+					<a href="https://www.nps.gov/yose/planyourvisit/climbing.htm" class="external-link" target="_blank" rel="noopener noreferrer">
+						<span class="external-link-icon">🧗‍♂️</span>
+						<span class="external-link-text">Rock Climbing</span>
+					</a>
+					<a href="https://www.nps.gov/yose/planyourvisit/weather.htm" class="external-link" target="_blank" rel="noopener noreferrer">
+						<span class="external-link-icon">🌤️</span>
+						<span class="external-link-text">Weather & Seasons</span>
+					</a>
+					<a href="https://www.nps.gov/yose/planyourvisit/fishing.htm" class="external-link" target="_blank" rel="noopener noreferrer">
+						<span class="external-link-icon">🎣</span>
+						<span class="external-link-text">Fishing Information</span>
+					</a>
+					<a href="https://www.nps.gov/yose/planyourvisit/bears.htm" class="external-link" target="_blank" rel="noopener noreferrer">
+						<span class="external-link-icon">🐻</span>
+						<span class="external-link-text">Bear Safety</span>
+					</a>
+					<a href="https://www.nps.gov/yose/planyourvisit/yoursafety.htm" class="external-link" target="_blank" rel="noopener noreferrer">
+						<span class="external-link-icon">⚠️</span>
+						<span class="external-link-text">Safety Guidelines</span>
 					</a>
 				</div>
 			</section>
@@ -669,31 +693,110 @@ const currentSeason = getCurrentSeason();
 					<div class="transport-option">
 						<h3>YARTS Bus Service</h3>
 						<p>{siteInfo.transportation["YARTS Bus"].description}</p>
+						<div class="external-links">
+							<div class="external-link">
+								<span class="external-link-icon">🚌</span>
+								<span class="external-link-text">YARTS Midpines Stop - 2 min walk</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">🏪</span>
+								<span class="external-link-text">Midpines Store - 3 min walk</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">⛽</span>
+								<span class="external-link-text">Gas Station - 3 min walk</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">📬</span>
+								<span class="external-link-text">USPS Post Office - 3 min walk</span>
+							</div>
+							<a href={siteInfo.transportation["YARTS Bus"].url} class="external-link" target="_blank" rel="noopener noreferrer">
+								<span class="external-link-icon">🎫</span>
+								<span class="external-link-text">View Schedule & Book Tickets</span>
+							</a>
+						</div>
 						<p>Schedule: {siteInfo.transportation["YARTS Bus"].schedule}</p>
 						<p>Cost: {siteInfo.transportation["YARTS Bus"].cost}</p>
-						<a href={siteInfo.transportation["YARTS Bus"].url} target="_blank" rel="noopener noreferrer">
-							View Schedule & Book Tickets
-						</a>
 					</div>
 
 					<div class="transport-option">
-						<h3>Rental Cars</h3>
-						<p>{siteInfo.transportation["Rental Cars"].description}</p>
-						<ul>
-							{siteInfo.transportation["Rental Cars"].locations.map(location => (
-								<li>{location}</li>
-							))}
-						</ul>
+						<h3>Car Services</h3>
+						<div class="external-links">
+							<div class="external-link">
+								<span class="external-link-icon">🚗</span>
+								<span class="external-link-text">Enterprise Rent-A-Car - Merced</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">🚙</span>
+								<span class="external-link-text">Hertz - Fresno Airport</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">🚐</span>
+								<span class="external-link-text">Yosemite Private Tours</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">🚍</span>
+								<span class="external-link-text">Discover Yosemite Tours</span>
+							</div>
+						</div>
 					</div>
 
 					<div class="transport-option">
-						<h3>Private Shuttle Services</h3>
-						<p>{siteInfo.transportation["Private Shuttle"].description}</p>
-						<ul>
-							{siteInfo.transportation["Private Shuttle"].providers.map(provider => (
-								<li>{provider}</li>
-							))}
-						</ul>
+						<h3>Local Restaurants</h3>
+						<div class="external-links">
+							<a href="https://www.mariposacoffeecompany.com/" class="external-link" target="_blank" rel="noopener noreferrer">
+								<span class="external-link-icon">☕</span>
+								<span class="external-link-text">Mariposa Coffee Company</span>
+							</a>
+							<div class="external-link">
+								<span class="external-link-icon">🍽️</span>
+								<span class="external-link-text">1850 Restaurant & Brewery</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">🍳</span>
+								<span class="external-link-text">Sugar Pine Cafe</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">🍕</span>
+								<span class="external-link-text">Charles Street Dinner House</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">🥩</span>
+								<span class="external-link-text">Savoury's Restaurant</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">🌮</span>
+								<span class="external-link-text">Don Rubens Restaurant</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">🍺</span>
+								<span class="external-link-text">The Grove House</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">☕</span>
+								<span class="external-link-text">Pony Expresso Coffee House</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">🍝</span>
+								<span class="external-link-text">Happy Burger Diner</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">🥪</span>
+								<span class="external-link-text">High Country Health Foods</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">🍖</span>
+								<span class="external-link-text">Pioneer Market Deli</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">🥗</span>
+								<span class="external-link-text">June Bug Cafe</span>
+							</div>
+							<div class="external-link">
+								<span class="external-link-icon">🍔</span>
+								<span class="external-link-text">Pizza Factory</span>
+							</div>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -1440,6 +1543,186 @@ const currentSeason = getCurrentSeason();
 		background-color: var(--accent);
 		color: white;
 	}
+
+	.rooms {
+		margin-top: 4rem;
+		padding: 4rem 2rem;
+	}
+
+	.area-info {
+		margin: 2rem 0;
+	}
+
+	.area-info h3 {
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+		color: var(--text);
+	}
+
+	.area-links {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 1rem;
+	}
+
+	.area-link {
+		display: flex;
+		align-items: center;
+		padding: 0.75rem 1rem;
+		background: var(--background);
+		border-radius: 8px;
+		text-decoration: none;
+		color: var(--text);
+		transition: all 0.2s ease;
+		border: 1px solid var(--border);
+	}
+
+	.area-link:hover {
+		background: var(--accent-light);
+		color: white;
+		transform: translateY(-2px);
+		box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+	}
+
+	.area-link-icon {
+		margin-right: 0.75rem;
+		font-size: 1.25rem;
+		color: var(--accent);
+	}
+
+	.area-link:hover .area-link-icon {
+		color: white;
+	}
+
+	.area-link-text {
+		font-weight: 500;
+	}
+
+	@media (max-width: 768px) {
+		.area-links {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	/* Common external link styles */
+	.external-links {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 1rem;
+	}
+
+	.external-link {
+		display: flex;
+		align-items: center;
+		padding: 0.75rem 1rem;
+		background: var(--background);
+		border-radius: 8px;
+		text-decoration: none;
+		color: var(--text);
+		transition: all 0.2s ease;
+		border: 1px solid var(--border);
+	}
+
+	.external-link:hover {
+		background: var(--accent-light);
+		color: white;
+		transform: translateY(-2px);
+		box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+	}
+
+	.external-link-icon {
+		margin-right: 0.75rem;
+		font-size: 1.25rem;
+		color: var(--accent);
+	}
+
+	.external-link:hover .external-link-icon {
+		color: white;
+	}
+
+	.external-link-text {
+		font-weight: 500;
+	}
+
+	/* Section specific adjustments */
+	.map-links {
+		margin-top: 1rem;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+	}
+
+	.social-links {
+		margin-top: 2rem;
+	}
+
+	.seasonal-links {
+		margin-top: 1rem;
+	}
+
+	@media (max-width: 768px) {
+		.external-links, .map-links {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.footer-section {
+		margin: 2rem 0;
+	}
+
+	.footer-section h4 {
+		font-size: 1.25rem;
+		margin-bottom: 1rem;
+		color: var(--text);
+	}
+
+	.footer-content {
+		max-width: var(--max-width);
+		margin: 0 auto;
+		padding: 2rem;
+	}
+
+	@media (min-width: 768px) {
+		.footer-content {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 2rem;
+		}
+	}
+
+	.park-info {
+		margin: 2rem 0;
+	}
+
+	.park-info h3 {
+		font-size: 1.5rem;
+		margin-bottom: 1rem;
+		color: var(--text);
+	}
+
+	.amenities {
+		margin: 4rem 0;
+		padding: 2rem;
+	}
+
+	.amenities-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 2rem;
+		margin-top: 2rem;
+	}
+
+	.amenity-category h3 {
+		font-size: 1.25rem;
+		margin-bottom: 1rem;
+		color: var(--text);
+	}
+
+	@media (max-width: 768px) {
+		.amenities-grid {
+			grid-template-columns: 1fr;
+		}
+	}
 </style>
 
 <!-- Yelp Reviews Script -->
@@ -1523,8 +1806,9 @@ const currentSeason = getCurrentSeason();
 		const scrollPosition = window.scrollY + 100; // Offset for nav height
 
 		sections.forEach(section => {
-			const sectionTop = section.offsetTop;
-			const sectionHeight = section.clientHeight;
+			const sectionEl = section as HTMLElement;  // Type assertion
+			const sectionTop = sectionEl.offsetTop;
+			const sectionHeight = sectionEl.clientHeight;
 			const sectionId = section.getAttribute('id');
 
 			if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {

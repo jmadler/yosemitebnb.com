@@ -13,7 +13,8 @@
     "parse": "tsx scripts/parse-listings.ts",
     "validate": "tsx scripts/validate-data.ts",
     "download-photos": "tsx scripts/download-photos.ts",
-    "optimize-images": "tsx scripts/optimize-images.ts"
+    "optimize-images": "tsx scripts/optimize-images.ts",
+    "rename-photos": "tsx scripts/rename-photos.ts"
   },
   "dependencies": {
     "@astrojs/tailwind": "^5.1.0",
