@@ -26,7 +26,7 @@ export const rooms = {
       "/images/rooms/yosemite-falls/yosemite-falls-suite-room-amenities.jpg",
       "/images/rooms/yosemite-falls/yosemite-falls-suite-features.jpg"
     ],
-    "capacity": "2 guests",
+    "capacity": "4 guests",
     "amenities": [
       "Mountain view",
       "Kitchen",
@@ -87,7 +87,7 @@ export const rooms = {
   "el-capitan": {
     "id": "el-capitan",
     "label": "El Capitan Suite",
-    "description": "Experience comfort and convenience in our El Capitan Suite, thoughtfully designed for the solo adventurer. This modern suite features a full kitchen, comfortable sleeping area, and a spacious desk for remote work. Enjoy mountain views, a 43-inch smart TV with streaming services, and access to our shared hot tub. The perfect base camp for your Yosemite adventure.",
+    "description": "Experience comfort and convenience in our El Capitan Suite, thoughtfully designed for the solo adventurer. This modern suite features a micro kitchen, comfortable sleeping area with king beds, and a spacious desk for remote work. Enjoy mountain views, a 43-inch smart TV with streaming services, and access to our shared hot tub. The perfect base camp for your Yosemite adventure.",
     "images": [
       "/images/rooms/el-capitan/16.jpg",
       "/images/rooms/el-capitan/17.jpg",
@@ -129,7 +129,7 @@ export const rooms = {
   "half-dome": {
     "id": "half-dome",
     "label": "Half Dome Suite",
-    "description": "The Half Dome Suite offers a perfect blend of comfort and functionality for solo travelers. This well-appointed suite includes a modern kitchenette, comfortable bed, and dedicated workspace. Enjoy mountain views, a 43-inch smart TV, and access to our shared hot tub. Whether you're here for work or adventure, this suite provides all the essentials for a memorable stay.",
+    "description": "The Half Dome Suite offers a perfect blend of comfort and functionality for solo travelers. This well-appointed suite includes king bed and dedicated workspace. Enjoy mountain views, a 43-inch smart TV, and access to our shared hot tub. Whether you're here for work or adventure, this suite provides all the essentials for a memorable stay.",
     "images": [
       "/images/rooms/half-dome/16.jpg",
       "/images/rooms/half-dome/17.jpg",
@@ -152,7 +152,7 @@ export const rooms = {
       "/images/rooms/half-dome/half-dome-suite-amenities.jpg",
       "/images/rooms/half-dome/half-dome-suite-exterior.jpg"
     ],
-    "capacity": "1 guest",
+    "capacity": "2 guest",
     "amenities": [
       "Lock on bedroom door",
       "Mountain view",
