@@ -152,7 +152,7 @@ export const rooms = {
       "/images/rooms/half-dome/half-dome-suite-amenities.jpg",
       "/images/rooms/half-dome/half-dome-suite-exterior.jpg"
     ],
-    "capacity": "2 guest",
+    "capacity": "2 guests",
     "amenities": [
       "Lock on bedroom door",
       "Mountain view",
