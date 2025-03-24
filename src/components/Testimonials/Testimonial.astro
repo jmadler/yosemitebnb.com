@@ -1,0 +1,66 @@
+---
+interface Props {
+  name: string;
+  location?: string;
+  date: string;
+  text: string;
+  avatar: string;
+}
+
+const { name, location, date, text, avatar } = Astro.props;
+const displayName = location ? `${name}, ${location}` : name;
+---
+
+<div class="testimonial-card">
+  <div class="testimonial-header">
+    <img src={avatar} alt={`${name}'s profile picture`} class="testimonial-avatar" />
+    <div class="testimonial-meta">
+      <h3>{displayName}</h3>
+      <p class="testimonial-location">{date}</p>
+    </div>
+  </div>
+  <p class="testimonial-text">{text}</p>
+</div>
+
+<style>
+  .testimonial-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .testimonial-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .testimonial-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 1rem;
+  }
+
+  .testimonial-meta h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .testimonial-location {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-light);
+  }
+
+  .testimonial-text {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+</style> 

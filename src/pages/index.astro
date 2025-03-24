@@ -1,243 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { rooms } from '../data/rooms';
+import { siteInfo } from '../data/siteInfo';
+import { roomsArray } from '../data/roomsArray';
+import { activities, currentSeason, seasonalActivities } from '../data/activities';
+import TestimonialSlider from '../components/Testimonials/TestimonialSlider.astro';
 
-// Convert rooms object to array for mapping
-const roomsArray = Object.values(rooms);
-
-const siteInfo = {
-	address: "6484A CA-140, Midpines, CA 95345",
-	phone: "(209) 742-4019",
-	email: "rlntlss1@gmail.com",
-	checkIn: "3:00 PM - 8:00 PM",
-	checkOut: "11:00 AM",
-	parking: "Free on-site parking available",
-	distances: {
-		"Yosemite Valley": "45 min drive (37 miles)",
-		"Mariposa": "10 min drive (7 miles)",
-		"Merced Airport": "1 hour drive (50 miles)",
-		"Bass Lake": "45 min drive",
-		"Glacier Point": "1 hour drive (45 miles)",
-		"Sierra National Forest": "30 min drive",
-		"El Portal": "25 min drive",
-		"Arch Rock Entrance": "30 min drive"
-	},
-	nearbyAttractions: [
-		{
-			name: "Yosemite National Park",
-			description: "World-famous for its granite cliffs, waterfalls, and diverse wildlife",
-			url: "https://www.nps.gov/yose/index.htm"
-		},
-		{
-			name: "Historic Mariposa",
-			description: "Gold rush era town with museums, shops, and restaurants",
-			url: "https://www.mariposa.ca.us/"
-		},
-		{
-			name: "Merced River Recreation",
-			description: "Swimming, fishing, and rafting opportunities",
-			url: "https://www.mercedca.gov/parks-recreation/merced-river-recreation"
-		},
-		{
-			name: "California State Mining Museum",
-			description: "Exhibits on gold mining history and mineral displays",
-			url: "https://www.californiamines.org/"
-		}
-	],
-	seasonalActivities: {
-		spring: {
-			activities: [
-				"Waterfall viewing at peak flow (April-May)",
-				"Wildflower blooms in meadows",
-				"Hiking lower elevation trails",
-				"Rock climbing beginning season",
-				"Bird watching as migrants return"
-			],
-			image: "/images/seasons/spring-waterfalls.jpg",
-			additionalImages: [
-				"/images/seasons/spring-wildflowers.jpg",
-				"/images/seasons/spring-hiking.jpg",
-				"/images/seasons/spring-climbing.jpg"
-			],
-			temp: "45-70°F (7-21°C)",
-			highlights: "Peak waterfall season, wildflowers"
-		},
-		summer: {
-			activities: [
-				"All park roads open",
-				"Full hiking trail access",
-				"Swimming in Merced River",
-				"Rock climbing peak season",
-				"Stargazing programs",
-				"High country access"
-			],
-			image: "/images/seasons/summer-valley.jpg",
-			additionalImages: [
-				"/images/seasons/summer-hiking.jpg",
-				"/images/seasons/summer-stargazing.jpg",
-				"/images/seasons/summer-highcountry.jpg"
-			],
-			temp: "65-90°F (18-32°C)",
-			highlights: "Best hiking weather, all areas accessible"
-		},
-		fall: {
-			activities: [
-				"Fall colors in valley (October-November)",
-				"Less crowded trails",
-				"Pleasant temperatures for hiking",
-				"Clear skies for photography",
-				"Rock climbing continues"
-			],
-			image: "/images/seasons/fall-colors.jpg",
-			additionalImages: [
-				"/images/seasons/fall-hiking.jpg",
-				"/images/seasons/fall-photography.jpg",
-				"/images/seasons/fall-climbing.jpg"
-			],
-			temp: "50-75°F (10-24°C)",
-			highlights: "Fall colors, fewer crowds"
-		},
-		winter: {
-			activities: [
-				"Skiing at Badger Pass",
-				"Snowshoeing trails",
-				"Ice skating in valley",
-				"Winter photography",
-				"Cozy fireplace evenings"
-			],
-			image: "/images/seasons/winter-snow.jpg",
-			additionalImages: [
-				"/images/seasons/winter-skiing.jpg",
-				"/images/seasons/winter-snowshoeing.jpg",
-				"/images/seasons/winter-ice-skating.jpg"
-			],
-			temp: "35-50°F (2-10°C)",
-			highlights: "Snow activities, dramatic scenery"
-		}
-	},
-	houseRules: [
-		"Quiet hours 10 PM - 7 AM",
-		"No smoking inside",
-		"No pets allowed",
-		"No parties or events",
-		"Check-in time strictly 3 PM - 8 PM"
-	],
-	localDining: [
-		{
-			name: "1850 Restaurant",
-			type: "American",
-			location: "Mariposa",
-			distance: "7 miles"
-		},
-		{
-			name: "Charles Street Dinner House",
-			type: "Steakhouse",
-			location: "Mariposa",
-			distance: "7 miles"
-		}
-	],
-	transportation: {
-		"YARTS Bus": {
-			description: "Year-round service to Yosemite Valley",
-			url: "https://yarts.com/routes-and-schedules/",
-			schedule: "Multiple daily departures from Mariposa",
-			cost: "Around $13 one-way, free with Yosemite entrance pass"
-		},
-		"Rental Cars": {
-			description: "Available in Merced and Fresno",
-			locations: [
-				"Merced Airport (MCE)",
-				"Fresno Airport (FAT)",
-				"Enterprise Rent-A-Car Merced"
-			]
-		},
-		"Private Shuttle": {
-			description: "Door-to-door service available",
-			providers: [
-				"Yosemite Private Tours",
-				"Discover Yosemite"
-			]
-		}
-	},
-	emergencyInfo: {
-		"Local Hospital": "John C. Fremont Hospital, Mariposa (15 min)",
-		"Police": "Mariposa County Sheriff (10 min)",
-		"Fire": "Midpines Fire Station (5 min)",
-		"Emergency": "911"
-	},
-	trails: {
-		easy: [
-			{
-				name: "Lower Yosemite Falls",
-				distance: "1 mile round trip",
-				elevation: "50 feet",
-				time: "30 minutes",
-				description: "Easy paved loop to the base of Lower Yosemite Falls",
-				url: "https://www.nps.gov/yose/planyourvisit/yosemitefalls.htm"
-			},
-			{
-				name: "Bridalveil Fall",
-				distance: "0.5 mile round trip",
-				elevation: "80 feet",
-				time: "20 minutes",
-				description: "Short walk to the base of Bridalveil Fall",
-				url: "https://www.nps.gov/yose/planyourvisit/bridalveilfalltrail.htm"
-			}
-		],
-		moderate: [
-			{
-				name: "Vernal Fall Footbridge",
-				distance: "1.6 miles round trip",
-				elevation: "400 feet",
-				time: "1-2 hours",
-				description: "Uphill hike to footbridge with waterfall views",
-				url: "https://www.nps.gov/yose/planyourvisit/vernalnevadafall.htm"
-			},
-			{
-				name: "Mirror Lake Loop",
-				distance: "2-5 miles round trip",
-				elevation: "100 feet",
-				time: "1-3 hours",
-				description: "Scenic walk to Mirror Lake with views of Half Dome",
-				url: "https://www.nps.gov/yose/planyourvisit/mirrorlakeloop.htm"
-			}
-		],
-		strenuous: [
-			{
-				name: "Upper Yosemite Falls",
-				distance: "7.2 miles round trip",
-				elevation: "2,700 feet",
-				time: "6-8 hours",
-				description: "Challenging hike to the top of North America's tallest waterfall",
-				url: "https://www.nps.gov/yose/planyourvisit/yosemitefalls.htm"
-			},
-			{
-				name: "Four Mile Trail",
-				distance: "9.6 miles round trip",
-				elevation: "3,200 feet",
-				time: "6-8 hours",
-				description: "Steep trail from Valley to Glacier Point with spectacular views",
-				url: "https://www.nps.gov/yose/planyourvisit/fourmiletrail.htm"
-			}
-		]
-	},
-	maps: {
-		google: "https://maps.google.com/?q=6484A+CA-140,+Midpines,+CA+95345",
-		apple: "http://maps.apple.com/?address=6484A+CA-140,+Midpines,+CA+95345",
-		coordinates: {
-			lat: 37.5655556,
-			lng: -119.9394444
-		}
-	}
-};
-
-// Update meta/structured data with correct info
 const meta = {
-	title: "The Getaway Yosemite BnB - Mountain Retreat Near Yosemite",
-	description: "Cozy mountain lodging near Yosemite National Park. Private rooms with mountain views, 45 minutes from Yosemite Valley. Located at 6484A CA-140, Midpines.",
+	title: "The Getaway Yosemite BnB - Your Cozy Mountain Retreat",
+	description: "Experience comfort and convenience near Yosemite National Park. The Getaway BnB offers cozy rooms, breathtaking views, and easy access to all Yosemite has to offer.",
 	keywords: "Yosemite lodging, Yosemite BnB, Midpines hotel, Highway 140 accommodation, mountain retreat, Yosemite accommodation",
 	image: "/images/lodge/exterior.jpg",
-	url: "https://yosemitebnb.com",
+	url: "https://www.thegatewayyosemite.com",
 	structuredData: {
 		"@context": "https://schema.org",
 		"@type": "LodgingBusiness",
@@ -267,16 +40,8 @@ const meta = {
 	}
 };
 
-// Helper function to get current season
-const getCurrentSeason = () => {
-	const month = new Date().getMonth();
-	if (month >= 2 && month <= 4) return 'spring';
-	if (month >= 5 && month <= 7) return 'summer';
-	if (month >= 8 && month <= 10) return 'fall';
-	return 'winter';
-};
-
-const currentSeason = getCurrentSeason();
+// Get the current season's activities info
+const seasonInfo = seasonalActivities[currentSeason];
 ---
 
 <Layout title={meta.title} meta={meta}>
@@ -286,7 +51,7 @@ const currentSeason = getCurrentSeason();
 		</button>
 		<ul class="nav-links">
 			<li><a href="#rooms">Our Rooms</a></li>
-			<li><a href="#reviews">Guest Reviews</a></li>
+			<li><a href="#testimonials">Testimonials</a></li>
 			<li><a href="#location">Location & Contact</a></li>
 			<li><a href="#park-info">Yosemite Info</a></li>
 			<li><a href="#activities">Seasonal Activities</a></li>
@@ -387,40 +152,10 @@ const currentSeason = getCurrentSeason();
 				</div>
 			</section>
 
-			<section id="reviews" class="reviews">
-				<h2>Guest Reviews</h2>
+			<section id="testimonials" class="testimonials">
+				<h2>Guest Testimonials</h2>
 				
-				<div class="review-grid">
-					<div class="review-source">
-						<h3>Google Reviews</h3>
-						<div class="google-reviews">
-							<iframe 
-								src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12696.724798745537!2d-119.9394444!3d37.5655556!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8096b8f5a2d3aad3%3A0x2f2014a61205155!2sThe%20Getaway!5e0!3m2!1sen!2sus!4v1708482478947!5m2!1sen!2sus" 
-								width="100%" 
-								height="450" 
-								style="border:0;" 
-								allowfullscreen="" 
-								loading="lazy" 
-								referrerpolicy="no-referrer-when-downgrade">
-							</iframe>
-						</div>
-					</div>
-
-					<div class="review-source">
-						<h3>Yelp Reviews</h3>
-						<div class="yelp-reviews">
-							<span class="yelp-review" 
-								data-review-id="get-away-midpines" 
-								data-hostname="www.yelp.com">
-								<a href="https://www.yelp.com/biz/get-away-midpines" 
-									target="_blank" 
-									rel="noopener noreferrer">
-									Read our reviews on Yelp
-								</a>
-							</span>
-						</div>
-					</div>
-				</div>
+				<TestimonialSlider />
 
 				<div class="trust-badges">
 					<div class="badge">
@@ -628,12 +363,12 @@ const currentSeason = getCurrentSeason();
 			<section id="activities" class="activities">
 				<h2>Activities by Season</h2>
 				<div class="activities-grid">
-					{Object.entries(siteInfo.seasonalActivities).map(([season, info]) => (
+					{Object.entries(seasonalActivities).map(([season, info]) => (
 						<div class={`activity-box ${season === currentSeason ? 'current' : ''}`}>
 							<div class="activity-carousel">
 								<div class="carousel-images">
 									<img src={info.image} alt={`${season} activities`} class="active" />
-									{info.additionalImages?.map(img => (
+									{info.additionalImages?.map((img: string) => (
 										<img src={img} alt={`${season} activities`} loading="lazy" />
 									))}
 								</div>
@@ -645,10 +380,20 @@ const currentSeason = getCurrentSeason();
 								<p class="temp">{info.temp}</p>
 								<p class="highlight">{info.highlights}</p>
 								<ul class="activity-list">
-									{info.activities.map(activity => (
+									{info.activities.map((activity: string) => (
 										<li>{activity}</li>
 									))}
 								</ul>
+							</div>
+							
+							{/* Display detailed activities for this season */}
+							<div class="detailed-activities">
+								{info.detailedActivities.map((activity: { title: string; description: string }) => (
+									<div class="detailed-activity">
+										<h4>{activity.title}</h4>
+										<p>{activity.description}</p>
+									</div>
+								))}
 							</div>
 						</div>
 					))}
@@ -970,33 +715,14 @@ const currentSeason = getCurrentSeason();
 		color: var(--text-light);
 	}
 
-	.reviews {
+	.testimonials {
 		padding: 4rem 2rem;
 		background: var(--background-alt);
 	}
 
-	.reviews h2 {
+	.testimonials h2 {
 		text-align: center;
 		margin-bottom: 2rem;
-	}
-
-	.review-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: 2rem;
-		margin-bottom: 4rem;
-	}
-
-	.review-source {
-		background: white;
-		padding: 1rem;
-		border-radius: 8px;
-		box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-	}
-
-	.review-source h3 {
-		margin: 0 0 1rem 0;
-		text-align: center;
 	}
 
 	.trust-badges {
@@ -1236,7 +962,7 @@ const currentSeason = getCurrentSeason();
 	}
 
 	@media (max-width: 768px) {
-		.review-grid {
+		.testimonial-slider {
 			grid-template-columns: 1fr;
 		}
 		.info-grid {
@@ -1257,6 +983,14 @@ const currentSeason = getCurrentSeason();
 		transition: transform 0.3s ease;
 	}
 
+	.page-nav.sticky {
+		box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+	}
+
+	.page-nav.nav-hidden {
+		transform: translateY(-100%);
+	}
+	
 	.nav-links {
 		list-style: none;
 		padding: 0;
@@ -1289,6 +1023,7 @@ const currentSeason = getCurrentSeason();
 		border: none;
 		padding: 0.5rem;
 		cursor: pointer;
+		z-index: 101;
 	}
 
 	.menu-icon {
@@ -1311,11 +1046,11 @@ const currentSeason = getCurrentSeason();
 	}
 
 	.menu-icon::before {
-		transform: translateY(-8px);
+		top: -8px;
 	}
 
 	.menu-icon::after {
-		transform: translateY(8px);
+		bottom: -8px;
 	}
 
 	.mobile-menu-open .menu-icon {
@@ -1333,33 +1068,45 @@ const currentSeason = getCurrentSeason();
 	@media (max-width: 768px) {
 		.mobile-menu-btn {
 			display: block;
-		}
-
-		.nav-links {
 			position: absolute;
-			top: 100%;
+			top: 1rem;
+			right: 1rem;
+		}
+		
+		.nav-links {
+			position: fixed;
+			top: 0;
 			left: 0;
-			right: 0;
+			width: 100%;
+			height: 100vh;
+			background: rgba(255, 255, 255, 0.95);
 			flex-direction: column;
-			background: white;
-			padding: 1rem;
-			gap: 1rem;
-			visibility: hidden;
+			justify-content: center;
+			align-items: center;
+			transform: translateY(-100%);
 			opacity: 0;
-			transform: translateY(-1rem);
-			transition: all 0.3s ease;
+			visibility: hidden;
+			transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
 		}
-
-		.mobile-menu-open .nav-links {
-			visibility: visible;
-			opacity: 1;
+		
+		.nav-links.mobile-active {
 			transform: translateY(0);
+			opacity: 1;
+			visibility: visible;
 		}
-
-		.nav-links a {
-			display: block;
-			text-align: center;
-			padding: 0.75rem;
+		
+		.mobile-menu-btn.active .menu-icon {
+			background: transparent;
+		}
+		
+		.mobile-menu-btn.active .menu-icon::before {
+			transform: rotate(45deg) translate(0, 0);
+			top: 0;
+		}
+		
+		.mobile-menu-btn.active .menu-icon::after {
+			transform: rotate(-45deg) translate(0, 0);
+			bottom: 0;
 		}
 	}
 
@@ -1720,140 +1467,196 @@ const currentSeason = getCurrentSeason();
 			grid-template-columns: 1fr;
 		}
 	}
+
+	.activity-list li {
+		margin-bottom: 0.5rem;
+	}
+	
+	.detailed-activities {
+		margin-top: 1.5rem;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 1rem;
+	}
+	
+	.detailed-activity {
+		background: rgba(255, 255, 255, 0.8);
+		padding: 1rem;
+		border-radius: 8px;
+		box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+	}
+	
+	.detailed-activity h4 {
+		margin: 0 0 0.5rem 0;
+		color: var(--accent);
+	}
+	
+	.detailed-activity p {
+		margin: 0;
+		font-size: 0.9rem;
+		line-height: 1.4;
+	}
 </style>
 
 <!-- Yelp Reviews Script -->
-<script async src="https://www.yelp.com/embed/widgets.js"></script>
+<!-- <script async src="https://www.yelp.com/embed/widgets.js"></script> -->
 
 <script>
-	// Hero image carousel
-	const images = document.querySelectorAll<HTMLImageElement>('.hero-carousel img');
-	let currentImage = 0;
+	// Hero Carousel
+	const heroImages = document.querySelectorAll<HTMLImageElement>('.hero-carousel img');
+	let currentHeroIndex = 0;
 
-	function nextImage() {
-		images[currentImage].classList.remove('active');
-		currentImage = (currentImage + 1) % images.length;
-		images[currentImage].classList.add('active');
+	function nextHeroImage() {
+		heroImages[currentHeroIndex].classList.remove('active');
+		currentHeroIndex = (currentHeroIndex + 1) % heroImages.length;
+		heroImages[currentHeroIndex].classList.add('active');
 	}
 
-	// Change image every 5 seconds
-	setInterval(nextImage, 5000);
+	// Change hero image every 5 seconds
+	setInterval(nextHeroImage, 5000);
 
-	// Parallax effect on scroll
-	window.addEventListener('scroll', () => {
-		const scrolled = window.pageYOffset;
-		const hero = document.querySelector<HTMLElement>('.hero');
-		const heroHeight = hero?.offsetHeight || 0;
+	// Testimonials Pagination
+	document.addEventListener('DOMContentLoaded', function() {
+		const testimonialCards = document.querySelectorAll<HTMLElement>('.testimonial-card');
+		const prevButton = document.getElementById('prev-testimonial');
+		const nextButton = document.getElementById('next-testimonial');
+		const indicatorsContainer = document.querySelector<HTMLElement>('.testimonial-indicators');
 		
-		if (scrolled <= heroHeight) {
-			const activeImage = document.querySelector<HTMLImageElement>('.hero-carousel img.active');
-			if (activeImage) {
-				activeImage.style.transform = `scale(1.1) translateY(${scrolled * 0.5}px)`;
+		// Early exit if elements don't exist
+		if (!prevButton || !nextButton || !indicatorsContainer) return;
+		
+		const cardsPerPage = window.innerWidth < 768 ? 1 : 3;
+		const totalPages = Math.ceil(testimonialCards.length / cardsPerPage);
+		let currentPage = 0;
+		
+		// Create indicator dots
+		for (let i = 0; i < totalPages; i++) {
+			const indicator = document.createElement('div');
+			indicator.classList.add('testimonial-indicator');
+			if (i === 0) indicator.classList.add('active');
+			indicator.addEventListener('click', () => goToPage(i));
+			indicatorsContainer.appendChild(indicator);
+		}
+		
+		// Show only first page initially
+		updateVisibleCards();
+		
+		// Event listeners for navigation buttons
+		prevButton.addEventListener('click', () => {
+			if (currentPage > 0) {
+				currentPage--;
+				updateVisibleCards();
+				updateIndicators();
 			}
-		}
-	});
-
-	// Initialize carousels
-	document.querySelectorAll<HTMLDivElement>('.activity-box').forEach(box => {
-		const images = box.querySelectorAll<HTMLImageElement>('.carousel-images img');
-		const prev = box.querySelector<HTMLButtonElement>('.carousel-prev');
-		const next = box.querySelector<HTMLButtonElement>('.carousel-next');
-		let currentIndex = 0;
-
-		function showImage(index: number) {
-			images.forEach(img => img.classList.remove('active'));
-			images[index].classList.add('active');
-		}
-
-		prev?.addEventListener('click', () => {
-			currentIndex = (currentIndex - 1 + images.length) % images.length;
-			showImage(currentIndex);
 		});
-
-		next?.addEventListener('click', () => {
-			currentIndex = (currentIndex + 1) % images.length;
-			showImage(currentIndex);
+		
+		nextButton.addEventListener('click', () => {
+			if (currentPage < totalPages - 1) {
+				currentPage++;
+				updateVisibleCards();
+				updateIndicators();
+			}
 		});
-
-		// Touch support
-		let touchStartX = 0;
-		const carousel = box.querySelector<HTMLDivElement>('.activity-carousel');
-
-		carousel?.addEventListener('touchstart', e => {
-			touchStartX = e.touches[0].clientX;
-		});
-
-		carousel?.addEventListener('touchend', e => {
-			const diff = touchStartX - e.changedTouches[0].clientX;
-			if (Math.abs(diff) > 50) {
-				if (diff > 0) {
-					next?.click();
+		
+		// Function to update visible cards
+		function updateVisibleCards() {
+			testimonialCards.forEach((card, index) => {
+				const startIndex = currentPage * cardsPerPage;
+				const endIndex = startIndex + cardsPerPage;
+				
+				if (index >= startIndex && index < endIndex) {
+					card.style.display = 'flex';
 				} else {
-					prev?.click();
+					card.style.display = 'none';
 				}
+			});
+		}
+		
+		// Function to update indicator dots
+		function updateIndicators() {
+			const indicators = document.querySelectorAll('.testimonial-indicator');
+			indicators.forEach((indicator, index) => {
+				if (index === currentPage) {
+					indicator.classList.add('active');
+				} else {
+					indicator.classList.remove('active');
+				}
+			});
+		}
+		
+		// Function to go to a specific page
+		function goToPage(page: number) {
+			currentPage = page;
+			updateVisibleCards();
+			updateIndicators();
+		}
+		
+		// Handle window resize
+		window.addEventListener('resize', () => {
+			const newCardsPerPage = window.innerWidth < 768 ? 1 : 3;
+			if (newCardsPerPage !== cardsPerPage) {
+				const newTotalPages = Math.ceil(testimonialCards.length / newCardsPerPage);
+				
+				// Reset indicators
+				if (indicatorsContainer) {
+					indicatorsContainer.innerHTML = '';
+					for (let i = 0; i < newTotalPages; i++) {
+						const indicator = document.createElement('div');
+						indicator.classList.add('testimonial-indicator');
+						if (i === 0) indicator.classList.add('active');
+						indicator.addEventListener('click', () => goToPage(i));
+						indicatorsContainer.appendChild(indicator);
+					}
+				}
+				
+				// Reset current page
+				currentPage = 0;
+				updateVisibleCards();
+				updateIndicators();
 			}
 		});
 	});
 
-	// Add scroll spy for navigation
-	const sections = document.querySelectorAll('section[id]');
-	const navLinks = document.querySelectorAll<HTMLAnchorElement>('.nav-links a');
+	// Sticky Nav
+	const pageNav = document.querySelector<HTMLElement>('.page-nav');
+	let lastScrollPosition = 0;
 
-	function updateActiveLink() {
-		const scrollPosition = window.scrollY + 100; // Offset for nav height
+	window.addEventListener('scroll', () => {
+		if (!pageNav) return;
+		
+		const currentScrollPosition = window.pageYOffset;
+		
+		if (currentScrollPosition > 100) {
+			pageNav.classList.add('sticky');
+		} else {
+			pageNav.classList.remove('sticky');
+		}
+		
+		if (currentScrollPosition > lastScrollPosition) {
+			pageNav.classList.add('nav-hidden');
+		} else {
+			pageNav.classList.remove('nav-hidden');
+		}
+		
+		lastScrollPosition = currentScrollPosition;
+	});
 
-		sections.forEach(section => {
-			const sectionEl = section as HTMLElement;  // Type assertion
-			const sectionTop = sectionEl.offsetTop;
-			const sectionHeight = sectionEl.clientHeight;
-			const sectionId = section.getAttribute('id');
+	// Mobile Menu
+	const mobileMenuBtn = document.querySelector<HTMLButtonElement>('.mobile-menu-btn');
+	const navLinks = document.querySelector<HTMLElement>('.nav-links');
 
-			if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-				navLinks.forEach(link => {
-					link.classList.remove('active');
-					if (link.getAttribute('href') === `#${sectionId}`) {
-						link.classList.add('active');
-					}
-				});
-			}
+	if (mobileMenuBtn && navLinks) {
+		mobileMenuBtn.addEventListener('click', () => {
+			navLinks.classList.toggle('mobile-active');
+			mobileMenuBtn.classList.toggle('active');
+		});
+
+		// Close menu when clicking on a link
+		document.querySelectorAll<HTMLAnchorElement>('.nav-links a').forEach(link => {
+			link.addEventListener('click', () => {
+				navLinks.classList.remove('mobile-active');
+				mobileMenuBtn.classList.remove('active');
+			});
 		});
 	}
-
-	window.addEventListener('scroll', updateActiveLink);
-	updateActiveLink(); // Initial call
-
-	// Mobile menu toggle
-	const mobileMenuBtn = document.querySelector<HTMLButtonElement>('.mobile-menu-btn');
-	const pageNav = document.querySelector<HTMLElement>('.page-nav');
-	let lastScroll = 0;
-
-	mobileMenuBtn?.addEventListener('click', () => {
-		pageNav?.classList.toggle('mobile-menu-open');
-	});
-
-	// Close menu when clicking outside
-	document.addEventListener('click', (e) => {
-		const target = e.target as HTMLElement;
-		if (!target.closest('.page-nav') && pageNav?.classList.contains('mobile-menu-open')) {
-			pageNav.classList.remove('mobile-menu-open');
-		}
-	});
-
-	// Hide nav on scroll down, show on scroll up
-	window.addEventListener('scroll', () => {
-		const currentScroll = window.pageYOffset;
-		if (currentScroll > lastScroll && currentScroll > 100) {
-			pageNav?.classList.add('nav-hidden');
-		} else {
-			pageNav?.classList.remove('nav-hidden');
-		}
-		lastScroll = currentScroll;
-	});
-
-	// Close mobile menu on navigation
-	document.querySelectorAll<HTMLAnchorElement>('.nav-links a').forEach(link => {
-		link.addEventListener('click', () => {
-			pageNav?.classList.remove('mobile-menu-open');
-		});
-	});
 </script> 
